@@ -1,0 +1,31 @@
+.app-header {
+	background-color: var(--clr1);
+	background-color:#E48EAA;
+}
+
+.header-container {
+	display: flex;
+	align-items: center;
+
+}
+
+.header-container h1 {
+	flex-grow: 1;
+}
+
+.header-container img {
+	display: block;
+    margin-right: 1rem;
+    cursor: pointer;
+}
+
+.app-nav {
+	display: flex;
+	gap: 15px;
+}
+
+@media (max-width: 720px) {
+	.app-header {
+		color: var(--clr2bg-light);
+	}
+}
