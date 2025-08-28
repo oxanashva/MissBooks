@@ -1,9 +1,13 @@
+import { BookPreview } from "./BookPreview.jsx"
+
 const { useState, useEffect } = React
 
-export function BookList() {
+export function BookList({ books }) {
     return (
         <section className="book-list">
-            <h2>Book List</h2>
+            {books.map(book => (
+                <BookPreview key={book.id} book={book} />
+            ))}
         </section>
     )
 }

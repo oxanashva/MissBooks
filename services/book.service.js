@@ -6,11 +6,26 @@ export const bookService = {
     query,
     get,
     remove,
-    save
+    save,
+    getDefaultFilter
 }
 
-function query() {
+function query(filterBy) {
     return storageService.query(KEY)
+        .then(books => {
+            if (filterBy.title) {
+                const regExp = new RegExp(filterBy.title, 'i')
+                books = books.filter(book => regExp.test(book.title))
+            }
+
+            if (filterBy.price) {
+                books = books.filter(book => {
+                    return book.listPrice.amount <= filterBy.price
+                })
+            }
+
+            return books
+        })
 }
 
 function get(id) {
@@ -27,6 +42,10 @@ function save(book) {
     } else {
         return storageService.post(KEY, book)
     }
+}
+
+function getDefaultFilter(filterBy = { title: '', price: 0 }) {
+    return { title: filterBy.title, price: filterBy.price }
 }
 
 function _createBooks(num) {

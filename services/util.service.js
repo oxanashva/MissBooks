@@ -21,12 +21,12 @@ function makeId(length = 6) {
 }
 
 function makeLorem(size = 100) {
-    const words = ['The sky', 'above', 'the port', 'was', 'the color' ,'of nature', 'tuned', 'to', 'a live channel', 'All', 'this happened', 'more or less', 'I', 'had', 'the story', 'bit by bit', 'from various people', 'and', 'as generally', 'happens', 'in such cases', 'each time', 'it', 'was', 'a different story', 'a pleasure', 'to', 'burn']
+    const words = ['The sky', 'above', 'the port', 'was', 'the color', 'of nature', 'tuned', 'to', 'a live channel', 'All', 'this happened', 'more or less', 'I', 'had', 'the story', 'bit by bit', 'from various people', 'and', 'as generally', 'happens', 'in such cases', 'each time', 'it', 'was', 'a different story', 'a pleasure', 'to', 'burn']
     var txt = ''
     while (size > 0) {
         size--
         txt += words[Math.floor(Math.random() * words.length)]
-        if (size >= 1 ) txt += ' '
+        if (size >= 1) txt += ' '
     }
     return txt
 }
@@ -58,7 +58,7 @@ function getMonthName(date) {
     return monthNames[date.getMonth()]
 }
 
-function animateCSS(el, animation='bounce') {
+function animateCSS(el, animation = 'bounce') {
     const prefix = 'animate__'
     return new Promise((resolve, reject) => {
         const animationName = `${prefix}${animation}`

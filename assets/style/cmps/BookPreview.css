@@ -1,12 +1,23 @@
-.book-preview {}
-.book-preview {}
-.book-preview {}
-.book-preview {}
-.book-preview {}
-.book-preview {}
-.book-preview {}
-.book-preview {}
-.book-preview {}
-.book-preview {}
-.book-preview {}
-.book-preview {}
+.book-preview {
+    position: relative;
+    background-color: var(--clr1bg-light);
+    padding: 1rem;
+    border-radius: 0.5rem;
+
+    &:hover {
+        cursor: pointer;
+        transform: translate(-0.2rem, -0.2rem);
+        transition: transform .3s ease-in-out;
+    }
+}
+.book-preview .sale {
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
+    background-color: rgb(237, 94, 149);
+    padding: 0.3rem;
+    border-radius: 0.3rem;
+}
+.book-preview .title {
+    color: var(--clr1);
+}

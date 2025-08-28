@@ -13,6 +13,9 @@
 /* Vars */
 
 :root {
+	--clr1: rgb(0, 91, 94);
+	--clr2: rgb(113, 37, 67);
+
 	--clr1bg: rgb(228, 142, 170);
 	--clr1bg-light: rgb(255, 246, 250);
 	--clr2bg: rgb(158, 120, 155);
@@ -132,6 +135,16 @@ a.active {
 /* Simple and useful CSS Debugging Technique */
 .debug * {
 	outline: 1px solid gold
+}
+
+/* Text helpers  */
+
+.colored-text {
+	color: var(--clr2);
+}
+
+.bold-text {
+	font-weight: bold;
 }
 
 /* flex helpers */
