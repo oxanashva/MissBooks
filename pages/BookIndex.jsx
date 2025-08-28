@@ -9,6 +9,8 @@ export function BookIndex() {
     const [filterBy, setFilterBy] = useState(bookService.getDefaultFilter())
 
     useEffect(() => {
+        console.log({ filterBy });
+
         bookService.query(filterBy).then(setBooks)
     }, [filterBy])
 

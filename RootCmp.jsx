@@ -4,8 +4,8 @@ import { HomePage } from "./pages/HomePage.jsx"
 import { AboutUs } from "./pages/AboutUs.jsx"
 import { BookIndex } from "./pages/BookIndex.jsx"
 import { NotFound } from "./pages/NotFound.jsx"
-const Router = ReactRouterDOM.HashRouter
-const { Routes, Route, Navigate } = ReactRouterDOM
+
+const { Routes, Route, Navigate, HashRouter: Router } = ReactRouterDOM
 
 export function RootCmp() {
     return (

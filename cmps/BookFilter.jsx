@@ -1,16 +1,11 @@
 const { useState, useEffect } = React
 
 export function BookFilter({ filterBy, onSetFilterBy }) {
-    const [filterParam, setFilterParam] = useState('title')
     const [newFilterBy, setNewFilterBy] = useState(filterBy)
 
     useEffect(() => {
         onSetFilterBy(newFilterBy)
     }, [newFilterBy])
-
-    function handleSelect(ev) {
-        setFilterParam(ev.target.value)
-    }
 
     function handleInput({ target }) {
         let value = target.value
@@ -28,22 +23,24 @@ export function BookFilter({ filterBy, onSetFilterBy }) {
         }))
     }
 
+    const { title, price } = newFilterBy
+
     return (
         <section className="book-filter">
-            <label htmlFor="filter">Filter by:</label>
-            <select
-                name="filter"
-                id="filter"
-                onChange={handleSelect}
-                value={filterParam}
-            >
-                <option value="title">title</option>
-                <option value="price">price</option>
-            </select>
+            <h3>Filter By:</h3>
+            <label htmlFor="title">Filter By Title</label>
             <input
-                type={filterParam === 'title' ? 'text' : 'number'}
-                name={filterParam === 'title' ? 'title' : 'price'}
-                value={newFilterBy[filterParam]}
+                type="text"
+                name="title"
+                value={title}
+                placeholder="Title"
+                onChange={handleInput}
+            />
+            <label htmlFor="price">Filter By Price</label>
+            <input
+                type="number"
+                name="price"
+                value={price}
                 onChange={handleInput}
             />
         </section>
