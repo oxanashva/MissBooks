@@ -1,13 +1,19 @@
+import { utilService } from "../services/util.service.js"
+
 const { useState, useEffect } = React
 
 export function BookPreview({ book }) {
-    const { id, title, thumbnail, listPrice: { amount, currencyCode, isOnSale } } = book
+    const { id, title, authors, categories, thumbnail, listPrice: { amount, currencyCode, isOnSale } } = book
 
     return (
         <article key={id} className="book-preview">
-            <h3 className="title">{title}</h3>
+            <h2 className="title">{title}</h2>
+            <p className="text-bold"><span className="text-gray">Authors:</span> {authors.join(', ')}</p>
+            <p className="categories">
+                {categories.map(category => <span key={utilService.makeId()}>{category}</span>)}
+            </p>
             <img src={thumbnail} alt={title} />
-            <span>Price: <span className="colored-text bold-text">{amount} {currencyCode}</span></span>
+            <p className="text-bold"><span className="text-gray">Price: </span><span className="text-colored">{amount} {currencyCode}</span></p>
             {isOnSale && <span className="sale">Sale</span>}
         </article>
     )

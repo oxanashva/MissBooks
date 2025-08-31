@@ -139,11 +139,15 @@ a.active {
 
 /* Text helpers  */
 
-.colored-text {
+.text-colored {
 	color: var(--clr2);
 }
 
-.bold-text {
+.text-gray {
+	color: var(--gray2);
+}
+
+.text-bold {
 	font-weight: bold;
 }
 

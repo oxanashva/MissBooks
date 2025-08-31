@@ -10,6 +10,7 @@
         transition: transform .3s ease-in-out;
     }
 }
+
 .book-preview .sale {
     position: absolute;
     top: 0.5rem;
@@ -18,12 +19,21 @@
     padding: 0.3rem;
     border-radius: 0.3rem;
 }
+
 .book-preview .title {
     color: var(--clr1);
     height: 40px;
 }
 
+.book-preview .categories span {
+    display: flex;
+    width: max-content;
+    padding: 0.5rem;
+    background-color: var(--gray1);
+    border-radius: 0.5rem;
+}
+
 .book-preview img {
     display: block;
-    margin-block: 1rem;
+    margin-block: 2rem;
 }

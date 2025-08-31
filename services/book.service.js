@@ -48,18 +48,6 @@ function getDefaultFilter(filterBy = { title: '', price: 0 }) {
     return { title: filterBy.title, price: filterBy.price }
 }
 
-// function _createBooks(num) {
-//     let books = JSON.parse(localStorage.getItem(KEY))
-//     if (!books || books.length === 0) {
-//         books = [];
-//         for (let i = 0; i < num; i++) {
-//             const book = _createBook()
-//             books.push(book)
-//         }
-//     }
-//     utilService.saveToStorage(KEY, books)
-// }
-
 function _createBooks() {
     let books = JSON.parse(localStorage.getItem(KEY)) || []
 
@@ -84,8 +72,8 @@ function _createBooks() {
             }
             books.push(book)
         }
+        utilService.saveToStorage(KEY, books)
     }
-    utilService.saveToStorage(KEY, books)
 }
 
 _createBooks(20)
