@@ -20,4 +20,10 @@
 }
 .book-preview .title {
     color: var(--clr1);
+    height: 40px;
+}
+
+.book-preview img {
+    display: block;
+    margin-block: 1rem;
 }

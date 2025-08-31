@@ -48,28 +48,44 @@ function getDefaultFilter(filterBy = { title: '', price: 0 }) {
     return { title: filterBy.title, price: filterBy.price }
 }
 
-function _createBooks(num) {
-    let books = JSON.parse(localStorage.getItem(KEY))
+// function _createBooks(num) {
+//     let books = JSON.parse(localStorage.getItem(KEY))
+//     if (!books || books.length === 0) {
+//         books = [];
+//         for (let i = 0; i < num; i++) {
+//             const book = _createBook()
+//             books.push(book)
+//         }
+//     }
+//     utilService.saveToStorage(KEY, books)
+// }
+
+function _createBooks() {
+    let books = JSON.parse(localStorage.getItem(KEY)) || []
+
     if (!books || books.length === 0) {
-        books = [];
-        for (let i = 0; i < num; i++) {
-            const book = _createBook()
+        const ctgs = ['Love', 'Fiction', 'Poetry', 'Computers', 'Religion']
+        for (let i = 0; i < 20; i++) {
+            const book = {
+                id: utilService.makeId(),
+                title: utilService.makeLorem(2),
+                subtitle: utilService.makeLorem(4),
+                authors: [utilService.makeLorem(1)],
+                publishedDate: utilService.getRandomIntInclusive(1950, 2024), description: utilService.makeLorem(20),
+                pageCount: utilService.getRandomIntInclusive(20, 600),
+                categories: [ctgs[utilService.getRandomIntInclusive(0, ctgs.length - 1)]],
+                thumbnail: `http://www.coding-academy.org/books-photos/${i + 1}.jpg`,
+                language: "en",
+                listPrice: {
+                    amount: utilService.getRandomIntInclusive(80, 500),
+                    currencyCode: "EUR",
+                    isOnSale: Math.random() > 0.7
+                }
+            }
             books.push(book)
         }
     }
     utilService.saveToStorage(KEY, books)
-}
-
-function _createBook() {
-    return {
-        id: utilService.makeId(),
-        title: utilService.makeLorem(2),
-        listPrice: {
-            amount: utilService.getRandomIntInclusive(80, 500),
-            currencyCode: "EUR",
-            isOnSale: Math.random() > 0.7
-        }
-    }
 }
 
 _createBooks(20)
