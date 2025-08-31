@@ -7,5 +7,3 @@ export function BookEdit() {
         </section>
     )
 }
-
-BookEdit

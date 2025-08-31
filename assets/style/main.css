@@ -151,6 +151,19 @@ a.active {
 	font-weight: bold;
 }
 
+.text-italic {
+	font-style: italic;
+}
+
+.red {
+	color: red;
+
+}
+
+.green {
+	color: green;
+}
+
 /* flex helpers */
 
 .flex {

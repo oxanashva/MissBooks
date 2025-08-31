@@ -1,16 +1,3 @@
-.book-preview {
-    position: relative;
-    background-color: var(--clr1bg-light);
-    padding: 1rem;
-    border-radius: 0.5rem;
-
-    &:hover {
-        cursor: pointer;
-        transform: translate(-0.2rem, -0.2rem);
-        transition: transform .3s ease-in-out;
-    }
-}
-
 .book-preview .sale {
     position: absolute;
     top: 0.5rem;
@@ -36,4 +23,8 @@
 .book-preview img {
     display: block;
     margin-block: 2rem;
+}
+
+.book-preview button:first-of-type {
+    margin-inline-start: 0;
 }

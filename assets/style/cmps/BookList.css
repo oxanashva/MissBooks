@@ -3,4 +3,19 @@
     grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
     gap: 1rem;
     margin-block-end: 1rem;
+    list-style: none;
+    padding: 0;
+}
+
+.book-list li {
+    position: relative;
+    background-color: var(--clr1bg-light);
+    padding: 1rem;
+    border-radius: 0.5rem;
+
+    &:hover {
+        cursor: pointer;
+        transform: translate(-0.2rem, -0.2rem);
+        transition: transform .3s ease-in-out;
+    }
 }
