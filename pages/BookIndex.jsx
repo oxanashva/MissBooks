@@ -1,19 +1,27 @@
 import { BookList } from "../cmps/BookList.jsx"
 import { BookFilter } from "../cmps/BookFilter.jsx"
 import { bookService } from "../services/book.service.js"
+import { BookEdit } from "../cmps/BookEdit.jsx"
 
 const { useState, useEffect } = React
-const { useNavigate } = ReactRouterDOM
 
 export function BookIndex() {
     const [books, setBooks] = useState(null)
     const [filterBy, setFilterBy] = useState(bookService.getDefaultFilter())
+    const [isEditOpen, setIsEditOpen] = useState(false)
     const [selectedBook, setSelectedBook] = useState(null)
-    const navigate = useNavigate()
 
     useEffect(() => {
         bookService.query(filterBy).then(setBooks)
     }, [filterBy])
+
+    function onOpenModal() {
+        setIsEditOpen(true)
+    }
+
+    function onCloseModal() {
+        setIsEditOpen(false)
+    }
 
     function onRemove(id) {
         bookService.remove(id)
@@ -26,6 +34,8 @@ export function BookIndex() {
     return (
         <section className="book-index">
             <h2>Book Index</h2>
+            <button onClick={onOpenModal}>Add Book</button>
+            {isEditOpen && <BookEdit isEditOpen={isEditOpen} onCloseModal={onCloseModal} />}
             <BookFilter filterBy={filterBy} onSetFilterBy={setFilterBy} />
             <BookList books={books} onSelect={setSelectedBook} onRemove={onRemove} />
         </section>
