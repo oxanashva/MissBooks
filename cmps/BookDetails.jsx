@@ -26,6 +26,8 @@ export function BookDetails() {
             return "Descent Reading"
         } else if (pageCount < 100) {
             return 'Light Reading'
+        } else {
+            return 'Normal Reading';
         }
     }
 
