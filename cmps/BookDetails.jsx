@@ -1,5 +1,6 @@
 import { bookService } from "../services/book.service.js"
 import { utilService } from "../services/util.service.js"
+import { LongTxt } from "./LongTxt.jsx"
 
 const { useState, useEffect } = React
 const { useParams } = ReactRouterDOM
@@ -53,7 +54,7 @@ export function BookDetails() {
                 <p className="categories">
                     {book.categories.map(category => <span key={utilService.makeId()}>{category}</span>)}
                 </p>
-                <p>{book.description}</p>
+                <LongTxt txt={book.description} />
                 <p className="level">{getReadingLevel(book.pageCount)}</p>
                 <p className="status">{getBookStatus(book.publishedDate)}</p>
                 <p className="text-bold">
