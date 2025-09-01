@@ -12,7 +12,9 @@ export function BookIndex() {
     const [selectedBook, setSelectedBook] = useState(null)
 
     useEffect(() => {
-        bookService.query(filterBy).then(setBooks)
+        bookService.query(filterBy)
+            .then(setBooks)
+            .catch(error => console.log(error))
     }, [filterBy])
 
     function onOpenModal() {

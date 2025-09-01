@@ -44,7 +44,6 @@ export function BookFilter({ filterBy, onSetFilterBy }) {
 
     function clearFilter() {
         setFilterByToEdit(bookService.getDefaultFilter())
-        // onClearFilter()
     }
 
     const { title, price } = filterByToEdit

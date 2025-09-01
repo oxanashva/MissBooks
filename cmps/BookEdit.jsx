@@ -52,7 +52,7 @@ export function BookEdit({ book, isEditOpen, onCloseModal, onAddBook, onUpdateBo
                 else onAddBook(savedBook)
 
                 onCloseModal()
-            })
+            }).catch(error => console.log(error))
     }
 
     return (

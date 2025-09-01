@@ -9,15 +9,10 @@ export function BookDetails() {
     const params = useParams()
 
     useEffect(() => {
-        loadBook()
-    }, [])
-
-    function loadBook() {
         bookService.get(params.id)
             .then(setBook)
-            .catch(error => console.log(error)
-            )
-    }
+            .catch(error => console.log(error))
+    }, [])
 
     function getReadingLevel(pageCount) {
         if (pageCount > 500) {
