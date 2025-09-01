@@ -4,3 +4,12 @@
 	background-color: var(--clr2bg-light);
 	border-radius: 0.5rem;
 }
+
+.book-filter .filters-container {
+	display: flex;
+	align-items: center;
+}
+
+.book-filter button {
+	background-color: var(--gray2);
+}

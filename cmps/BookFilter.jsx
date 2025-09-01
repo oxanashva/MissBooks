@@ -1,3 +1,5 @@
+import { bookService } from "../services/book.service.js"
+
 const { useState, useEffect } = React
 
 export function BookFilter({ filterBy, onSetFilterBy }) {
@@ -40,26 +42,34 @@ export function BookFilter({ filterBy, onSetFilterBy }) {
         }))
     }
 
+    function clearFilter() {
+        setFilterByToEdit(bookService.getDefaultFilter())
+        // onClearFilter()
+    }
+
     const { title, price } = filterByToEdit
 
     return (
         <section className="book-filter">
             <h3>Filter By:</h3>
-            <label htmlFor="title">Filter By Title</label>
-            <input
-                type="text"
-                name="title"
-                value={title}
-                placeholder="Title"
-                onChange={handleInput}
-            />
-            <label htmlFor="price">Filter By Price</label>
-            <input
-                type="number"
-                name="price"
-                value={price}
-                onChange={handleInput}
-            />
+            <div className="filters-container">
+                <label htmlFor="title">Title</label>
+                <input
+                    type="text"
+                    name="title"
+                    value={title}
+                    placeholder="Title"
+                    onChange={handleInput}
+                />
+                <label htmlFor="price">Max Price</label>
+                <input
+                    type="number"
+                    name="price"
+                    value={price}
+                    onChange={handleInput}
+                />
+                <button onClick={clearFilter}>Clear Filter</button>
+            </div>
         </section>
     )
 }

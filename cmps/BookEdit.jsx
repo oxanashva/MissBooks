@@ -50,7 +50,6 @@ export function BookEdit({ book, isEditOpen, onCloseModal, onAddBook, onUpdateBo
             .then((savedBook) => {
                 if (bookToEdit.id) onUpdateBook(savedBook)
                 else onAddBook(savedBook)
-                console.log(savedBook);
 
                 onCloseModal()
             })
