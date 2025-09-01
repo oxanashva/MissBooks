@@ -26,12 +26,14 @@ export function BookEdit({ book, isEditOpen, onCloseModal, onAddBook, onUpdateBo
         }
 
         setBookToEdit(prevBook => {
-            if (field === "price") {
+            const [parentKey, childKey] = field.split('.')
+
+            if (childKey) {
                 return {
                     ...prevBook,
-                    listPrice: {
-                        ...prevBook.listPrice,
-                        amount: value
+                    [parentKey]: {
+                        ...prevBook[parentKey],
+                        [childKey]: value
                     }
                 }
             } else {
@@ -72,7 +74,7 @@ export function BookEdit({ book, isEditOpen, onCloseModal, onAddBook, onUpdateBo
                     <label htmlFor="price">Price</label>
                     <input
                         id="price"
-                        name="price"
+                        name="listPrice.amount"
                         type="number"
                         value={bookToEdit.price}
                         onChange={handleInput}
