@@ -49,11 +49,13 @@ function getDefaultFilter(filterBy = { title: '', price: 0 }) {
     return { title: filterBy.title, price: filterBy.price }
 }
 
-function getEmptyBook(title = '', price = 0) {
+function getEmptyBook(title = '', price = 0, currency = 'EUR', isOnSale = false) {
     return {
         title,
         listPrice: {
-            amount: price
+            amount: price,
+            currencyCode: currency,
+            isOnSale: isOnSale
         }
     }
 }

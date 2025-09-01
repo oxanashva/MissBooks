@@ -22,6 +22,10 @@ export function BookEdit({ book, isEditOpen, onCloseModal, onAddBook, onUpdateBo
         switch (target.type) {
             case 'number':
                 value = +value || ''
+                break
+            case 'radio':
+                value = value === 'true'
+                break
             default: break
         }
 
@@ -75,9 +79,50 @@ export function BookEdit({ book, isEditOpen, onCloseModal, onAddBook, onUpdateBo
                         id="price"
                         name="listPrice.amount"
                         type="number"
-                        value={bookToEdit.price}
+                        value={bookToEdit.listPrice.amount}
                         onChange={handleInput}
                     />
+                </div>
+                <div className="form-group">
+                    <label htmlFor="currency">Currency</label>
+                    <select
+                        id="currency"
+                        name="listPrice.currencyCode"
+                        type="text"
+                        value={bookToEdit.listPrice.currencyCode}
+                        onChange={handleInput}
+                    >
+                        <option value="USD">USD</option>
+                        <option value="EUR">EUR</option>
+                        <option value="ILS">ILS</option>
+                    </select>
+                </div>
+                <div className="form-group">
+                    <label>Is On Sale</label>
+                    <div>
+                        <label>
+                            <input
+                                id="isOnSale-yes"
+                                name="listPrice.isOnSale"
+                                type="radio"
+                                value="true"
+                                checked={bookToEdit.listPrice.isOnSale === true}
+                                onChange={handleInput}
+                            />
+                            Yes
+                        </label>
+                        <label>
+                            <input
+                                id="isOnSale-no"
+                                name="listPrice.isOnSale"
+                                type="radio"
+                                value="false"
+                                checked={bookToEdit.listPrice.isOnSale === false}
+                                onChange={handleInput}
+                            />
+                            No
+                        </label>
+                    </div>
                 </div>
                 <button type="submit">Save</button>
             </form>
