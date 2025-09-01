@@ -47,15 +47,11 @@ export function BookIndex() {
             })
     }
 
-    const longTxt = "The component renders the first length characters of txt with a read more/less option to toggle the display of the rest of the text."
-
     if (!books) return <div>Loading...</div>
     return (
         <section className="book-index">
             <h2>Book Index</h2>
             <button onClick={onOpenModal}>Add Book</button>
-
-            <LongTxt txt={longTxt} />
 
             {isEditOpen &&
                 <BookEdit
