@@ -1,11 +1,28 @@
 const { useState, useEffect } = React
 
 export function BookFilter({ filterBy, onSetFilterBy }) {
-    const [newFilterBy, setNewFilterBy] = useState(filterBy)
+    const [filterByToEdit, setFilterByToEdit] = useState(filterBy)
+    const [debouncedFilterBy, setDebouncedFilterBy] = useState(filterByToEdit)
+
+    // // Alternate solution for filter without debounce
+
+    // useEffect(() => {
+    //     onSetFilterBy(filterByToEdit)
+    // }, [filterByToEdit])
 
     useEffect(() => {
-        onSetFilterBy(newFilterBy)
-    }, [newFilterBy])
+        const timeoutId = setTimeout(() => {
+            setDebouncedFilterBy(filterByToEdit)
+        }, 500)
+
+        return () => {
+            clearTimeout(timeoutId)
+        }
+    }, [filterByToEdit])
+
+    useEffect(() => {
+        onSetFilterBy(debouncedFilterBy)
+    }, [debouncedFilterBy])
 
     function handleInput({ target }) {
         let value = target.value
@@ -17,13 +34,13 @@ export function BookFilter({ filterBy, onSetFilterBy }) {
             default: break
         }
 
-        setNewFilterBy(prevVal => ({
-            ...prevVal,
+        setFilterByToEdit(prevFilterBy => ({
+            ...prevFilterBy,
             [field]: value
         }))
     }
 
-    const { title, price } = newFilterBy
+    const { title, price } = filterByToEdit
 
     return (
         <section className="book-filter">
@@ -46,3 +63,5 @@ export function BookFilter({ filterBy, onSetFilterBy }) {
         </section>
     )
 }
+
+// https://dev.to/remejuan/react-debouncing-input-with-useeffect-3nhk
