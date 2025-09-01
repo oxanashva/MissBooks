@@ -93,16 +93,19 @@ object {
 	max-width: 100%
 }
 
-button {
+button, a.link-btn {
 	cursor: pointer;
 	background-color: var(--clr2bg-light);
 	margin: 0.5em;
 	border: 0;
 	padding: 0.5em 0.8em;
 	border-radius: 4px;
+	font-family: "Figtree", sans-serif;
+	font-size: 0.9rem;
+	color: var(--gray3);
 }
 
-button:hover {
+button:hover, a.link-btn:hover {
 	background-color: var(--clr2bg);
 	color: white;
 	transition: 0.3s;
