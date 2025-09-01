@@ -1,30 +1,21 @@
-import { bookService } from "../services/book.service.js"
-
 const { useState, useEffect } = React
 
-export function BookFilter({ filterBy, onSetFilterBy }) {
+export function BookFilter({ filterBy, onSetFilterBy, onClearFilter }) {
     const [filterByToEdit, setFilterByToEdit] = useState(filterBy)
-    const [debouncedFilterBy, setDebouncedFilterBy] = useState(filterByToEdit)
 
-    // // Alternate solution for filter without debounce
-
-    // useEffect(() => {
-    //     onSetFilterBy(filterByToEdit)
-    // }, [filterByToEdit])
+    useEffect(() => {
+        setFilterByToEdit(filterBy)
+    }, [filterBy])
 
     useEffect(() => {
         const timeoutId = setTimeout(() => {
-            setDebouncedFilterBy(filterByToEdit)
+            onSetFilterBy(filterByToEdit)
         }, 500)
 
         return () => {
             clearTimeout(timeoutId)
         }
     }, [filterByToEdit])
-
-    useEffect(() => {
-        onSetFilterBy(debouncedFilterBy)
-    }, [debouncedFilterBy])
 
     function handleInput({ target }) {
         let value = target.value
@@ -43,7 +34,7 @@ export function BookFilter({ filterBy, onSetFilterBy }) {
     }
 
     function clearFilter() {
-        setFilterByToEdit(bookService.getDefaultFilter())
+        onClearFilter()
     }
 
     const { title, price } = filterByToEdit

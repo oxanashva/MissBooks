@@ -2,6 +2,7 @@ import { BookList } from "../cmps/BookList.jsx"
 import { BookFilter } from "../cmps/BookFilter.jsx"
 import { bookService } from "../services/book.service.js"
 import { BookEdit } from "../cmps/BookEdit.jsx"
+import { LongTxt } from "../cmps/LongTxt.jsx"
 
 const { useState, useEffect } = React
 
@@ -12,10 +13,16 @@ export function BookIndex() {
     const [selectedBook, setSelectedBook] = useState(null)
 
     useEffect(() => {
+        console.log(filterBy);
+
         bookService.query(filterBy)
             .then(setBooks)
             .catch(error => console.log(error))
     }, [filterBy])
+
+    function onClearFilter() {
+        setFilterBy(bookService.getDefaultFilter())
+    }
 
     function onOpenModal() {
         setIsEditOpen(true)
@@ -40,11 +47,15 @@ export function BookIndex() {
             })
     }
 
+    const longTxt = "The component renders the first length characters of txt with a read more/less option to toggle the display of the rest of the text."
+
     if (!books) return <div>Loading...</div>
     return (
         <section className="book-index">
             <h2>Book Index</h2>
             <button onClick={onOpenModal}>Add Book</button>
+
+            <LongTxt txt={longTxt} />
 
             {isEditOpen &&
                 <BookEdit
@@ -55,7 +66,7 @@ export function BookIndex() {
                 />
             }
 
-            <BookFilter filterBy={filterBy} onSetFilterBy={setFilterBy} />
+            <BookFilter filterBy={filterBy} onSetFilterBy={setFilterBy} onClearFilter={onClearFilter} />
 
             <BookList books={books} onSelect={setSelectedBook} onRemove={onRemove} />
         </section>
