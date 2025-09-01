@@ -7,7 +7,8 @@ export const bookService = {
     get,
     remove,
     save,
-    getDefaultFilter
+    getDefaultFilter,
+    getEmptyBook
 }
 
 function query(filterBy) {
@@ -46,6 +47,15 @@ function save(book) {
 
 function getDefaultFilter(filterBy = { title: '', price: 0 }) {
     return { title: filterBy.title, price: filterBy.price }
+}
+
+function getEmptyBook(title = '', price = 0) {
+    return {
+        title,
+        listPrice: {
+            amount: price
+        }
+    }
 }
 
 function _createBooks() {

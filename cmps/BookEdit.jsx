@@ -1,7 +1,10 @@
+import { bookService } from "../services/book.service.js"
+
 const { useState, useEffect, useRef } = React
 
-export function BookEdit({ isEditOpen, onCloseModal }) {
-    const [formValues, setFormValues] = useState({ title: '', price: 0 })
+export function BookEdit({ book, isEditOpen, onCloseModal, onAddBook, onUpdateBook }) {
+    const [bookToEdit, setBookToEdit] = useState(book ? { ...book } : bookService.getEmptyBook())
+
     const elDialog = useRef(null)
 
     useEffect(() => {
@@ -22,27 +25,46 @@ export function BookEdit({ isEditOpen, onCloseModal }) {
             default: break
         }
 
-        setFormValues(prevValues => ({
-            ...prevValues,
-            [field]: value
-        }))
+        setBookToEdit(prevBook => {
+            if (field === "price") {
+                return {
+                    ...prevBook,
+                    listPrice: {
+                        ...prevBook.listPrice,
+                        amount: value
+                    }
+                }
+            } else {
+                return {
+                    ...prevBook,
+                    [field]: value
+                }
+            }
+        })
     }
 
-    function handleClose() {
-        onCloseModal()
-        console.log('formValues', formValues)
+    function onSaveBook() {
+        bookService.save(bookToEdit)
+            .then((savedBook) => {
+                if (bookToEdit.id) onUpdateBook(savedBook)
+                else onAddBook(savedBook)
+                console.log(savedBook);
+
+                onCloseModal()
+            })
     }
 
     return (
         <dialog ref={elDialog} className="book-edit">
             <h2>Book Edit</h2>
-            <form method="dialog">
+            <form method="dialog" onSubmit={onSaveBook}>
                 <div className="form-group">
                     <label htmlFor="title">Title</label>
                     <input
                         id="title"
                         name="title"
                         type="text"
+                        value={bookToEdit.title}
                         onChange={handleInput}
                     />
                 </div>
@@ -52,12 +74,13 @@ export function BookEdit({ isEditOpen, onCloseModal }) {
                         id="price"
                         name="price"
                         type="number"
+                        value={bookToEdit.price}
                         onChange={handleInput}
                     />
                 </div>
-                <button type="submit" onClick={handleClose}>Save</button>
+                <button type="submit">Save</button>
             </form>
-            <button className="close" onClick={handleClose}>X</button>
+            <button className="close" type="button" onClick={onCloseModal}>X</button>
         </dialog>
     )
 }

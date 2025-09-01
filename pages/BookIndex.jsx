@@ -23,6 +23,14 @@ export function BookIndex() {
         setIsEditOpen(false)
     }
 
+    function onAddBook(savedBook) {
+        setBooks([...books, savedBook])
+    }
+
+    function onUpdateBook(savedBook) {
+        setBooks(books.map(book => book.id === savedBook.id ? savedBook : book))
+    }
+
     function onRemove(id) {
         bookService.remove(id)
             .then(() => {
@@ -35,8 +43,18 @@ export function BookIndex() {
         <section className="book-index">
             <h2>Book Index</h2>
             <button onClick={onOpenModal}>Add Book</button>
-            {isEditOpen && <BookEdit isEditOpen={isEditOpen} onCloseModal={onCloseModal} />}
+
+            {isEditOpen &&
+                <BookEdit
+                    isEditOpen={isEditOpen}
+                    onCloseModal={onCloseModal}
+                    onAddBook={onAddBook}
+                    onUpdateBook={onUpdateBook}
+                />
+            }
+
             <BookFilter filterBy={filterBy} onSetFilterBy={setFilterBy} />
+
             <BookList books={books} onSelect={setSelectedBook} onRemove={onRemove} />
         </section>
     )
