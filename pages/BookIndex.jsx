@@ -2,7 +2,6 @@ import { BookList } from "../cmps/BookList.jsx"
 import { BookFilter } from "../cmps/BookFilter.jsx"
 import { bookService } from "../services/book.service.js"
 import { BookEdit } from "../cmps/BookEdit.jsx"
-import { LongTxt } from "../cmps/LongTxt.jsx"
 
 const { useState, useEffect } = React
 

@@ -26,6 +26,16 @@ export function BookEdit({ book, isEditOpen, onCloseModal, onAddBook, onUpdateBo
             case 'radio':
                 value = value === 'true'
                 break
+            case 'checkbox':
+                const currentValues = bookToEdit[field] || []
+
+                if (currentValues.includes(value)) {
+                    value = currentValues.filter(v => v !== value)
+                } else {
+                    value = [...currentValues, value]
+                }
+
+                break
             default: break
         }
 
@@ -49,7 +59,14 @@ export function BookEdit({ book, isEditOpen, onCloseModal, onAddBook, onUpdateBo
         })
     }
 
-    function onSaveBook() {
+    function onSaveBook(event) {
+        event.preventDefault()
+
+        if (!bookToEdit.title || !bookToEdit.authors.length === 0 || bookToEdit.categories.length === 0) {
+            alert('Please fill title, authors and categories!')
+            return
+        }
+
         bookService.save(bookToEdit)
             .then((savedBook) => {
                 if (bookToEdit.id) onUpdateBook(savedBook)
@@ -59,10 +76,12 @@ export function BookEdit({ book, isEditOpen, onCloseModal, onAddBook, onUpdateBo
             }).catch(error => console.log(error))
     }
 
+    const availableCategories = ['Art', 'Biography', 'Computers', 'History', 'Medical', 'Poetry']
+
     return (
         <dialog ref={elDialog} className="book-edit">
             <h2>Book Edit</h2>
-            <form method="dialog" onSubmit={onSaveBook}>
+            <form onSubmit={onSaveBook}>
                 <div className="form-group">
                     <label htmlFor="title">Title</label>
                     <input
@@ -72,6 +91,33 @@ export function BookEdit({ book, isEditOpen, onCloseModal, onAddBook, onUpdateBo
                         value={bookToEdit.title}
                         onChange={handleInput}
                     />
+                </div>
+                <div className="form-group">
+                    <label>Authors</label>
+                    <input
+                        id="authors"
+                        name="authors"
+                        type="text"
+                        value={bookToEdit.authors}
+                        onChange={handleInput}
+                    />
+                </div>
+                <div className="form-group">
+                    <label>Categories</label>
+                    <div>
+                        {availableCategories.map(category => (
+                            <label key={category}>
+                                <input
+                                    type="checkbox"
+                                    name="categories"
+                                    value={category}
+                                    checked={bookToEdit.categories.includes(category)}
+                                    onChange={handleInput}
+                                />
+                                {category}
+                            </label>
+                        ))}
+                    </div>
                 </div>
                 <div className="form-group">
                     <label htmlFor="price">Price</label>
