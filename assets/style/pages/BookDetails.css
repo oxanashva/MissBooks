@@ -56,3 +56,11 @@
     font-style: italic;
     color: var(--gray2)
 }
+
+.book-details .btns-container {
+    margin-block: 4rem;
+}
+
+.book-details .btns-container .link-btn:first-of-type {
+    margin-inline-start: 0;
+}

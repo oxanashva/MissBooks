@@ -11,7 +11,7 @@ export const bookService = {
     getEmptyBook
 }
 
-function query(filterBy) {
+function query(filterBy = {}) {
     return storageService.query(KEY)
         .then(books => {
             if (filterBy.title) {
@@ -38,6 +38,7 @@ function query(filterBy) {
 
 function get(id) {
     return storageService.get(KEY, id)
+        .then(book => _setNextPrevBookId(book))
 }
 
 function remove(id) {
@@ -71,6 +72,17 @@ function getEmptyBook(title = '', authors = [], categories = [], thumbnail = 'as
             isOnSale: isOnSale
         }
     }
+}
+
+function _setNextPrevBookId(book) {
+    return query().then((books) => {
+        const bookIdx = books.findIndex((currBook) => currBook.id === book.id)
+        const nextId = books[bookIdx + 1] ? books[bookIdx + 1] : books[0]
+        const prevId = books[bookIdx - 1] ? books[bookIdx - 1] : books[books.length - 1]
+        book.nextBookId = nextId.id
+        book.prevBookId = prevId.id
+        return book
+    })
 }
 
 function _createBooks() {

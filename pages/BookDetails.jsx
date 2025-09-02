@@ -3,7 +3,7 @@ import { utilService } from "../services/util.service.js"
 import { LongTxt } from "../cmps/LongTxt.jsx"
 
 const { useState, useEffect } = React
-const { useParams } = ReactRouterDOM
+const { useParams, Link } = ReactRouterDOM
 
 export function BookDetails() {
     const [book, setBook] = useState(null)
@@ -11,9 +11,13 @@ export function BookDetails() {
 
     useEffect(() => {
         bookService.get(params.id)
-            .then(setBook)
+            .then(book => {
+                console.log(book)
+                setBook(book)
+
+            })
             .catch(error => console.log(error))
-    }, [])
+    }, [params.id])
 
     function getReadingLevel(pageCount) {
         if (pageCount > 500) {
@@ -63,6 +67,10 @@ export function BookDetails() {
                         {book.listPrice.amount} {book.listPrice.currencyCode}
                     </span>
                 </p>
+                <div className="btns-container">
+                    <Link className="link-btn" to={`/books/${book.prevBookId}`}>Prev</Link>
+                    <Link className="link-btn" to={`/books/${book.nextBookId}`}>Next</Link>
+                </div>
             </div>
         </section>
     )
