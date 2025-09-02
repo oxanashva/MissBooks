@@ -25,6 +25,13 @@ function query(filterBy) {
                 })
             }
 
+            if (filterBy.category) {
+                const regExp = new RegExp(filterBy.category, 'i')
+                books = books.filter(book => {
+                    return book.categories.some(category => regExp.test(category))
+                })
+            }
+
             return books
         })
 }
@@ -45,8 +52,8 @@ function save(book) {
     }
 }
 
-function getDefaultFilter(filterBy = { title: '', price: 0 }) {
-    return { title: filterBy.title, price: filterBy.price }
+function getDefaultFilter(filterBy = { title: '', price: 0, category: '' }) {
+    return { title: filterBy.title, price: filterBy.price, category: filterBy.category }
 }
 
 function getEmptyBook(title = '', authors = [], categories = [], thumbnail = 'assets/img/placeholder.jpg', description = '', publishedDate = 0, pageCount = 0, price = 0, currency = 'EUR', isOnSale = false) {

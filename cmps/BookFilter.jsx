@@ -37,7 +37,7 @@ export function BookFilter({ filterBy, onSetFilterBy, onClearFilter }) {
         onClearFilter()
     }
 
-    const { title, price } = filterByToEdit
+    const { title, price, category } = filterByToEdit
 
     return (
         <section className="book-filter">
@@ -56,6 +56,13 @@ export function BookFilter({ filterBy, onSetFilterBy, onClearFilter }) {
                     type="number"
                     name="price"
                     value={price}
+                    onChange={handleInput}
+                />
+                <label htmlFor="category">Category</label>
+                <input
+                    type="text"
+                    name="category"
+                    value={category}
                     onChange={handleInput}
                 />
                 <button onClick={clearFilter}>Clear Filter</button>
