@@ -2,10 +2,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,300..900;1,300..900&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
 
 @import "./cmps/AppHeader.css";
-@import "./cmps/BookIndex.css";
+@import "./pages/BookIndex.css";
 @import "./cmps/BookList.css";
 @import "./cmps/BookPreview.css";
-@import "./cmps/BookDetails.css";
+@import "./pages/BookDetails.css";
 @import "./cmps/BookFilter.css";
 @import "./cmps/BookEdit.css";
 @import "./cmps/LongTxt.css";

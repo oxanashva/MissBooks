@@ -1,6 +1,6 @@
 import { bookService } from "../services/book.service.js"
 import { utilService } from "../services/util.service.js"
-import { LongTxt } from "./LongTxt.jsx"
+import { LongTxt } from "../cmps/LongTxt.jsx"
 
 const { useState, useEffect } = React
 const { useParams } = ReactRouterDOM

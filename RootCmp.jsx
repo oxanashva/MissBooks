@@ -4,7 +4,7 @@ import { HomePage } from "./pages/HomePage.jsx"
 import { AboutUs } from "./pages/AboutUs.jsx"
 import { BookIndex } from "./pages/BookIndex.jsx"
 import { NotFound } from "./pages/NotFound.jsx"
-import { BookDetails } from "./cmps/BookDetails.jsx"
+import { BookDetails } from "./pages/BookDetails.jsx"
 
 const { Routes, Route, Navigate, HashRouter: Router } = ReactRouterDOM
 
