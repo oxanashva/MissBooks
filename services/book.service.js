@@ -49,12 +49,15 @@ function getDefaultFilter(filterBy = { title: '', price: 0 }) {
     return { title: filterBy.title, price: filterBy.price }
 }
 
-function getEmptyBook(title = '', authors = [], categories = [], thumbnail = 'assets/img/placeholder.jpg', price = 0, currency = 'EUR', isOnSale = false) {
+function getEmptyBook(title = '', authors = [], categories = [], thumbnail = 'assets/img/placeholder.jpg', description = '', publishedDate = 0, pageCount = 0, price = 0, currency = 'EUR', isOnSale = false) {
     return {
         title,
         thumbnail,
         authors,
         categories,
+        description,
+        publishedDate,
+        pageCount,
         listPrice: {
             amount: price,
             currencyCode: currency,

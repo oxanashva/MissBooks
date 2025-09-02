@@ -62,10 +62,12 @@ export function BookEdit({ book, isEditOpen, onCloseModal, onAddBook, onUpdateBo
     function onSaveBook(event) {
         event.preventDefault()
 
-        if (!bookToEdit.title || !bookToEdit.authors.length === 0 || bookToEdit.categories.length === 0) {
-            alert('Please fill title, authors and categories!')
+        if (!bookToEdit.title || !bookToEdit.authors.length === 0 || bookToEdit.categories.length === 0 || !bookToEdit.publishedDate || !bookToEdit.pageCount || !bookToEdit.listPrice.amount) {
+            alert('Please fill title, authors,categories, published date, page count and price!')
             return
         }
+
+        bookToEdit.authors = bookToEdit.authors.split(',').map(author => author.trim())
 
         bookService.save(bookToEdit)
             .then((savedBook) => {
@@ -93,7 +95,7 @@ export function BookEdit({ book, isEditOpen, onCloseModal, onAddBook, onUpdateBo
                     />
                 </div>
                 <div className="form-group">
-                    <label>Authors</label>
+                    <label>Authors<br />(separate names with commas)</label>
                     <input
                         id="authors"
                         name="authors"
@@ -118,6 +120,36 @@ export function BookEdit({ book, isEditOpen, onCloseModal, onAddBook, onUpdateBo
                             </label>
                         ))}
                     </div>
+                </div>
+                <div className="form-group">
+                    <label htmlFor="description">Description</label>
+                    <input
+                        id="description"
+                        name="description"
+                        type="text"
+                        value={bookToEdit.description}
+                        onChange={handleInput}
+                    />
+                </div>
+                <div className="form-group">
+                    <label htmlFor="publishedDate">Published Date</label>
+                    <input
+                        id="publishedDate"
+                        name="publishedDate"
+                        type="number"
+                        value={bookToEdit.publishedDate}
+                        onChange={handleInput}
+                    />
+                </div>
+                <div className="form-group">
+                    <label htmlFor="price">Page Count</label>
+                    <input
+                        id="pageCount"
+                        name="pageCount"
+                        type="number"
+                        value={bookToEdit.pageCount}
+                        onChange={handleInput}
+                    />
                 </div>
                 <div className="form-group">
                     <label htmlFor="price">Price</label>
