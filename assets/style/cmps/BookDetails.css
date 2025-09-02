@@ -1,5 +1,6 @@
 .book-details {
-    display: flex;
+    display: grid;
+    grid-template-columns: 1fr 2fr;
     gap: 2rem;
 }
 
@@ -24,6 +25,10 @@
 .book-details .img-container {
     position: relative;
     margin-block: 2rem;
+}
+
+.book-details .img-container img {
+    width: 100%;
 }
 
 .book-details .sale {
