@@ -5,6 +5,7 @@ import { AboutUs } from "./pages/AboutUs.jsx"
 import { BookIndex } from "./pages/BookIndex.jsx"
 import { NotFound } from "./pages/NotFound.jsx"
 import { BookDetails } from "./pages/BookDetails.jsx"
+import { UserMsg } from "./cmps/UserMsg.jsx"
 
 const { Routes, Route, Navigate, HashRouter: Router } = ReactRouterDOM
 
@@ -24,6 +25,7 @@ export function RootCmp() {
                     </Routes>
                 </main>
             </section>
+            <UserMsg />
         </Router>
     )
 }

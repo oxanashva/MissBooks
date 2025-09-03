@@ -1,0 +1,37 @@
+.user-msg {
+    position: fixed;
+    bottom: 1rem;
+    right: 1rem;
+    width: 300px;
+    padding: 2rem;
+    border-radius: 1rem;
+    background-color: var(--gray1);
+}
+
+.user-msg.success {
+    /* background-color: rgb(173, 243, 245); */
+    color: var(--clr1);
+    border: 1px solid var(--clr1);
+}
+
+.user-msg.error {
+    /* background-color: rgb(243, 170, 199); */
+    color: var(--clr2);
+    border: 1px solid var(--clr2);
+}
+
+.user-msg p {
+    margin-block-end: 0;
+}
+
+.user-msg button {
+    position: absolute;
+    top: 0.2rem;
+    right: 0.2rem;
+    background-color: transparent;
+}
+
+.user-msg button:hover {
+    background-color: transparent;
+    color: var(--gray2)
+}
