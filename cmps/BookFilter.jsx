@@ -1,20 +1,14 @@
-const { useState, useEffect } = React
+import { utilService } from "../services/util.service.js"
+
+const { useState, useEffect, useRef } = React
 
 export function BookFilter({ filterBy, onSetFilterBy, onClearFilter }) {
     const [filterByToEdit, setFilterByToEdit] = useState(filterBy)
 
-    useEffect(() => {
-        setFilterByToEdit(filterBy)
-    }, [filterBy])
+    const debouncedFilterByToEdit = useRef(utilService.debounce(onSetFilterBy)).current
 
     useEffect(() => {
-        const timeoutId = setTimeout(() => {
-            onSetFilterBy(filterByToEdit)
-        }, 500)
-
-        return () => {
-            clearTimeout(timeoutId)
-        }
+        debouncedFilterByToEdit(filterByToEdit)
     }, [filterByToEdit])
 
     function handleInput({ target }) {

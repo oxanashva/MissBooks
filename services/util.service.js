@@ -79,7 +79,19 @@ function debounce(func, delay = 500) {
     return (...args) => {
         clearTimeout(timeout)
         timeout = setTimeout(() => {
-            func.apply(this, args)
+            func(...args)
         }, delay)
     }
 }
+
+// // Another impelementation of debounce to capture the 'this' context
+// function debounce(func, delay = 500) {
+//     let timeout
+//     return function (...args) {
+//         const context = this
+//         clearTimeout(timeout)
+//         timeout = setTimeout(() => {
+//             func.apply(context, args)
+//         }, delay)
+//     }
+// }
