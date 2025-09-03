@@ -1,6 +1,7 @@
 import { bookService } from "../services/book.service.js"
 import { utilService } from "../services/util.service.js"
 import { LongTxt } from "../cmps/LongTxt.jsx"
+import { showErrorMsg } from "../services/event-bus.service.js"
 
 const { useState, useEffect } = React
 const { useParams, Link } = ReactRouterDOM
@@ -12,11 +13,12 @@ export function BookDetails() {
     useEffect(() => {
         bookService.get(params.id)
             .then(book => {
-                console.log(book)
                 setBook(book)
-
             })
-            .catch(error => console.log(error))
+            .catch(error => {
+                console.error('error:', error)
+                showErrorMsg('Cannot load book')
+            })
     }, [params.id])
 
     function getReadingLevel(pageCount) {

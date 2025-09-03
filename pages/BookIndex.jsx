@@ -2,6 +2,7 @@ import { BookList } from "../cmps/BookList.jsx"
 import { BookFilter } from "../cmps/BookFilter.jsx"
 import { bookService } from "../services/book.service.js"
 import { BookEdit } from "../cmps/BookEdit.jsx"
+import { showErrorMsg, showSuccessMsg } from "../services/event-bus.service.js"
 
 const { useState, useEffect } = React
 
@@ -14,7 +15,10 @@ export function BookIndex() {
     useEffect(() => {
         bookService.query(filterBy)
             .then(setBooks)
-            .catch(error => console.log(error))
+            .catch(error => {
+                console.error('error:', error)
+                showErrorMsg('Cannot load books')
+            })
     }, [filterBy])
 
     function onClearFilter() {
@@ -41,6 +45,11 @@ export function BookIndex() {
         bookService.remove(id)
             .then(() => {
                 setBooks(prevBooks => prevBooks.filter(book => book.id !== id))
+                showSuccessMsg('Book removed')
+            })
+            .catch(error => {
+                console.error('error:', error)
+                showErrorMsg('Cannot remove book ' + id)
             })
     }
 

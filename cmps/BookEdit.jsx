@@ -1,4 +1,5 @@
 import { bookService } from "../services/book.service.js"
+import { showErrorMsg, showSuccessMsg } from "../services/event-bus.service.js"
 
 const { useState, useEffect, useRef } = React
 
@@ -74,8 +75,13 @@ export function BookEdit({ book, isEditOpen, onCloseModal, onAddBook, onUpdateBo
                 if (bookToEdit.id) onUpdateBook(savedBook)
                 else onAddBook(savedBook)
 
+                showSuccessMsg(`Book saved (id: ${savedBook.id})`)
+
                 onCloseModal()
-            }).catch(error => console.log(error))
+            }).catch(error => {
+                console.error('error:', error)
+                showErrorMsg('Cannot save book')
+            })
     }
 
     const availableCategories = ['Art', 'Biography', 'Computers', 'History', 'Medical', 'Poetry']
