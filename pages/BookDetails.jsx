@@ -2,6 +2,7 @@ import { bookService } from "../services/book.service.js"
 import { utilService } from "../services/util.service.js"
 import { LongTxt } from "../cmps/LongTxt.jsx"
 import { showErrorMsg } from "../services/event-bus.service.js"
+import { AddReview } from "../cmps/AddReview.jsx"
 
 const { useState, useEffect } = React
 const { useParams, Link } = ReactRouterDOM
@@ -73,6 +74,7 @@ export function BookDetails() {
                     <Link className="link-btn" to={`/books/${book.prevBookId}`}>Prev</Link>
                     <Link className="link-btn" to={`/books/${book.nextBookId}`}>Next</Link>
                 </div>
+                <AddReview />
             </div>
         </section>
     )

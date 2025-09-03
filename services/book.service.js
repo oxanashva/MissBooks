@@ -8,7 +8,8 @@ export const bookService = {
     remove,
     save,
     getDefaultFilter,
-    getEmptyBook
+    getEmptyBook,
+    getEmptyReview
 }
 
 function query(filterBy = {}) {
@@ -50,6 +51,14 @@ function save(book) {
         return storageService.put(KEY, book)
     } else {
         return storageService.post(KEY, book)
+    }
+}
+
+function getEmptyReview(fullname = '', rating = '1', readAt = '') {
+    return {
+        fullname,
+        rating,
+        readAt
     }
 }
 
