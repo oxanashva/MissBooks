@@ -1,8 +1,9 @@
 import { bookService } from "../services/book.service.js"
+import { showErrorMsg, showSuccessMsg } from "../services/event-bus.service.js"
 
 const { useState, useEffect } = React
 
-export function AddReview() {
+export function AddReview({ bookId, onAddReview }) {
     const [reviews, setReviews] = useState(bookService.getEmptyReview())
 
     function handleInput({ target }) {
@@ -17,15 +18,23 @@ export function AddReview() {
 
     function onSaveReview(event) {
         event.preventDefault()
-        console.log(reviews);
-
+        bookService.addReview(bookId, reviews)
+            .then((book) => {
+                onAddReview(book)
+                setReviews(bookService.getEmptyReview())
+                showSuccessMsg('Review added')
+            })
+            .catch(error => {
+                console.error('error:', error)
+                showErrorMsg('Cannot add review')
+            })
     }
 
     const { fullname, rating, readAt } = reviews
 
     return (
         <div className="add-review">
-            <p className="text-italic text-bold">Add a Review</p>
+            <p className="text-bold text-gray">Add a Review</p>
             <form onSubmit={onSaveReview}>
                 <div className="field">
                     <label htmlFor="fullname">Your Full Name</label>

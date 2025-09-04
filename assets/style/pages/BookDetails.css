@@ -1,6 +1,6 @@
 .book-details {
     display: grid;
-    grid-template-columns: 1fr 2fr;
+    grid-template-columns: repeat(3, 1fr);
     gap: 2rem;
 }
 
@@ -63,4 +63,23 @@
 
 .book-details .btns-container .link-btn:first-of-type {
     margin-inline-start: 0;
+}
+
+.book-details ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.book-details .reviews {
+    grid-column: 3;
+    padding-block-start: calc(40px + 2rem);
+}
+
+.book-details ul li {
+    margin-block-end: 2rem;
+}
+
+.book-details .stars {
+    margin-inline-end: 1rem;
 }

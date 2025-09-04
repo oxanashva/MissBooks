@@ -9,7 +9,9 @@ export const bookService = {
     save,
     getDefaultFilter,
     getEmptyBook,
-    getEmptyReview
+    getEmptyReview,
+    addReview,
+    removeReview
 }
 
 function query(filterBy = {}) {
@@ -54,8 +56,32 @@ function save(book) {
     }
 }
 
-function getEmptyReview(fullname = '', rating = '1', readAt = '') {
+function addReview(bookId, review) {
+    return storageService.get(KEY, bookId)
+        .then(book => {
+            if (!book.reviews) {
+                book.reviews = [];
+            }
+            book.reviews.push(review)
+            return storageService.put(KEY, book)
+        })
+}
+
+function removeReview(bookId, reviewId) {
+    return storageService.get(KEY, bookId)
+        .then(book => {
+            const updatedReviews = book.reviews.filter(review => review.id !== reviewId)
+            const updatedBook = {
+                ...book,
+                reviews: updatedReviews
+            }
+            return storageService.put(KEY, updatedBook)
+        })
+}
+
+function getEmptyReview(id = utilService.makeId(), fullname = '', rating = '1', readAt = '') {
     return {
+        id,
         fullname,
         rating,
         readAt

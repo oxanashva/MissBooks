@@ -1,7 +1,7 @@
 import { bookService } from "../services/book.service.js"
 import { utilService } from "../services/util.service.js"
 import { LongTxt } from "../cmps/LongTxt.jsx"
-import { showErrorMsg } from "../services/event-bus.service.js"
+import { showErrorMsg, showSuccessMsg } from "../services/event-bus.service.js"
 import { AddReview } from "../cmps/AddReview.jsx"
 
 const { useState, useEffect } = React
@@ -21,6 +21,19 @@ export function BookDetails() {
                 showErrorMsg('Cannot load book')
             })
     }, [params.id])
+
+
+    function onRemoveReview(bookId, reviewId) {
+        bookService.removeReview(bookId, reviewId)
+            .then(book => {
+                setBook(book)
+                showSuccessMsg('Review removed')
+            })
+            .catch(error => {
+                console.error('error:', error)
+                showErrorMsg('Cannot remove review')
+            })
+    }
 
     function getReadingLevel(pageCount) {
         if (pageCount > 500) {
@@ -47,34 +60,49 @@ export function BookDetails() {
 
     if (!book) return <div>Loading...</div>
 
+    const { id, title, thumbnail, authors, categories, description, pageCount, publishedDate, prevBookId, nextBookId, listPrice: { amount, currencyCode, isOnSale }, reviews } = book
+
     return (
         <section className="book-details">
             <div className="header">
-                <h2 className="title">{book.title}</h2>
+                <h2 className="title">{title}</h2>
                 <div className="img-container">
-                    <img src={book.thumbnail} alt={book.title} />
-                    {book.listPrice.isOnSale && <span className="sale">Sale</span>}
+                    <img src={thumbnail} alt={title} />
+                    {isOnSale && <span className="sale">Sale</span>}
                 </div>
             </div>
             <div className="meta">
-                <p className="text-bold"><span className="text-gray">Authors:</span> {book.authors.join(', ')}</p>
+                <p className="text-bold"><span className="text-gray">Authors:</span> {authors.join(', ')}</p>
                 <p className="categories">
-                    {book.categories.map(category => <span key={utilService.makeId()}>{category}</span>)}
+                    {categories.map(category => <span key={utilService.makeId()}>{category}</span>)}
                 </p>
-                <LongTxt txt={book.description} />
-                <p className="level">{getReadingLevel(book.pageCount)}</p>
-                <p className="status">{getBookStatus(book.publishedDate)}</p>
+                <LongTxt txt={description} />
+                <p className="level">{getReadingLevel(pageCount)}</p>
+                <p className="status">{getBookStatus(publishedDate)}</p>
                 <p className="text-bold">
                     <span className="text-gray">Price: </span>
-                    <span className={`text-colored ${getPriceStyle(book.listPrice.amount)}`}>
-                        {book.listPrice.amount} {book.listPrice.currencyCode}
+                    <span className={`text-colored ${getPriceStyle(amount)}`}>
+                        {amount} {currencyCode}
                     </span>
                 </p>
                 <div className="btns-container">
-                    <Link className="link-btn" to={`/books/${book.prevBookId}`}>Prev</Link>
-                    <Link className="link-btn" to={`/books/${book.nextBookId}`}>Next</Link>
+                    <Link className="link-btn" to={`/books/${prevBookId}`}>Prev</Link>
+                    <Link className="link-btn" to={`/books/${nextBookId}`}>Next</Link>
                 </div>
-                <AddReview />
+            </div>
+            <div className="reviews">
+                <p className="text-bold text-gray">Reviews:</p>
+                <ul>
+                    {reviews && reviews.map(review =>
+                        <li key={utilService.makeId()}>
+                            <span className="stars">{"⭐".repeat(review.rating)}</span>
+                            <span className="text-bold">{review.fullname} </span>
+                            <span>read it on {new Date(review.readAt).toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" })}</span>
+                            <button onClick={() => onRemoveReview(id, review.id)}>X</button>
+                        </li>)
+                    }
+                </ul>
+                <AddReview bookId={id} onAddReview={setBook} />
             </div>
         </section>
     )
