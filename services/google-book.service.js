@@ -725,6 +725,16 @@ const googleBooks = {
 }
 
 function query(txt) {
-    const booksList = googleBooks.items.filter(book => book.volumeInfo.title.includes(txt))
-    return Promise.resolve(booksList)
+    const encodedSearchTerm = encodeURIComponent(txt)
+    const url = `https://www.googleapis.com/books/v1/volumes?printType=books&q=intitle:${encodedSearchTerm}`
+
+    return fetch(url)
+        .then(res => {
+            if (!res.ok) throw new Error('Network response was not ok')
+            return res.json()
+        })
+        .catch(error => {
+            console.error('Fetch error:', error)
+            throw error
+        })
 }
