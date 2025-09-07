@@ -162,6 +162,10 @@ a.active {
 	font-style: italic;
 }
 
+.text-center {
+	text-align: center;
+}
+
 .red {
 	color: red;
 
