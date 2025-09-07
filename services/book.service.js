@@ -11,7 +11,8 @@ export const bookService = {
     getEmptyBook,
     getEmptyReview,
     addReview,
-    removeReview
+    removeReview,
+    addGoogleBook
 }
 
 function query(filterBy = {}) {
@@ -118,6 +119,10 @@ function _setNextPrevBookId(book) {
         book.prevBookId = prevId.id
         return book
     })
+}
+
+function addGoogleBook(book) {
+    return storageService.post(KEY, book)
 }
 
 function _createBooks() {

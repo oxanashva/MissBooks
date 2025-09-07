@@ -5,6 +5,7 @@ import { BookEdit } from "../cmps/BookEdit.jsx"
 import { showErrorMsg, showSuccessMsg } from "../services/event-bus.service.js"
 
 const { useState, useEffect } = React
+const { Link } = ReactRouterDOM
 
 export function BookIndex() {
     const [books, setBooks] = useState(null)
@@ -58,6 +59,7 @@ export function BookIndex() {
         <section className="book-index">
             <h2>Book Index</h2>
             <button onClick={onOpenModal}>Add Book</button>
+            <Link to="/books/add" state={books} className="link-btn">Add Book from the Google Books</Link>
 
             {isEditOpen &&
                 <BookEdit

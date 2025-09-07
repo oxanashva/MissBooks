@@ -107,3 +107,5 @@ export function BookDetails() {
         </section>
     )
 }
+
+// TODO: add books to AddReview props
