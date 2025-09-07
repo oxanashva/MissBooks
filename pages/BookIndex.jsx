@@ -59,7 +59,7 @@ export function BookIndex() {
         <section className="book-index">
             <h2>Book Index</h2>
             <button onClick={onOpenModal}>Add Book</button>
-            <Link to="/books/add" state={books} className="link-btn">Add Book from the Google Books</Link>
+            <Link to="/books/add" className="link-btn">Add Book from the Google Books</Link>
 
             {isEditOpen &&
                 <BookEdit

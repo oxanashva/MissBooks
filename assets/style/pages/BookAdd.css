@@ -13,7 +13,7 @@
 
 .book-add ul li {
     display: grid;
-    grid-template-columns: 5fr 1fr;
+    grid-template-columns: 5fr 46px;
     gap: 1rem;
     align-items: center;
     border: 1px solid var(--gray1);

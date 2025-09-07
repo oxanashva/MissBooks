@@ -121,8 +121,30 @@ function _setNextPrevBookId(book) {
     })
 }
 
-function addGoogleBook(book) {
-    return storageService.post(KEY, book)
+function addGoogleBook(bookToAdd) {
+    return query().then(books => {
+        const bookExists = books.some(book => book.title === bookToAdd.title)
+        if (!bookExists) {
+            const newBook = {
+                title: bookToAdd.volumeInfo.title,
+                subtitle: bookToAdd.volumeInfo.subtitle,
+                authors: bookToAdd.volumeInfo.authors,
+                publishedDate: bookToAdd.volumeInfo.publishedDate,
+                description: bookToAdd.volumeInfo.description,
+                pageCount: bookToAdd.volumeInfo.pageCount,
+                categories: bookToAdd.volumeInfo.categories,
+                thumbnail: bookToAdd.volumeInfo.imageLinks.thumbnail,
+                listPrice: {
+                    amount: 0,
+                    currencyCode: 'EUR',
+                    isOnSale: false
+                }
+            }
+            return storageService.post(KEY, newBook)
+        } else {
+            throw new Error('Book already exists')
+        }
+    })
 }
 
 function _createBooks() {

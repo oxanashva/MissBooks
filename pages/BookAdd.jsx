@@ -1,39 +1,43 @@
 import { bookService } from "../services/book.service.js"
 import { showErrorMsg, showSuccessMsg } from "../services/event-bus.service.js"
+import { googleBookService } from "../services/google-book.service.js"
 
-const { useState, useEffect } = React
-const { useLocation } = ReactRouterDOM
+const { useState } = React
 
 export function BookAdd() {
-    const location = useLocation()
-    const books = location.state || []
-
-    const googleBooks = [
-        { id: 1, title: 'Book 1' },
-        { id: 2, title: 'Book 2' },
-        { id: 3, title: 'Book 3' },
-    ]
+    const [googleBooks, setGoogleBooks] = useState(null)
 
     function onAddBook(bookToAdd) {
-        const isBookExists = books.some(book => book.title === bookToAdd.title)
-        if (!isBookExists) {
-            bookService.addGoogleBook(bookToAdd)
-                .then(savedBook => {
-                    showSuccessMsg('Book added, book id:' + savedBook.id)
-                })
-                .catch(error => {
-                    console.error('Error:', error)
+        bookService.addGoogleBook(bookToAdd)
+            .then(savedBook => {
+                setGoogleBooks(prevGoogleBooks => prevGoogleBooks.filter(book => book.id !== bookToAdd.id))
+                showSuccessMsg('Book added, book id:' + savedBook.id)
+            })
+            .catch(error => {
+                if (error.message) {
+                    showErrorMsg(error.message)
+                } else {
                     showErrorMsg('Cannot add book')
-                })
-        }
+                }
+                console.error('Error:', error)
+            })
+    }
+
+    function onSearchSubmit(event) {
+        event.preventDefault()
+        googleBookService.query(event.target.search.value)
+            .then(setGoogleBooks)
     }
 
     return (
         <section className="book-add">
             <h2>Book Add</h2>
+            <form onSubmit={onSearchSubmit}>
+                <input type="search" name="search" id="search" placeholder="Search Google Books" />
+            </form>
             <ul>
-                {googleBooks.map(book => <li key={book.id}>
-                    <span>{book.title}</span>
+                {googleBooks && googleBooks.map(book => <li key={book.id}>
+                    <span>{book.volumeInfo.title}</span>
                     <button onClick={() => onAddBook(book)}>+</button>
                 </li>)}
             </ul>
