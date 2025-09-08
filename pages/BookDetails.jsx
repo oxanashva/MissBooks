@@ -65,31 +65,40 @@ export function BookDetails() {
     return (
         <section className="book-details">
             <div className="header">
-                <h2 className="title">{title}</h2>
-                <div className="img-container">
+                {title && <h2 className="title">{title}</h2>}
+
+                {thumbnail && <div className="img-container">
                     <img src={thumbnail} alt={title} />
                     {isOnSale && <span className="sale">Sale</span>}
-                </div>
+                </div>}
             </div>
+
             <div className="meta">
-                <p className="text-bold"><span className="text-gray">Authors:</span> {authors.join(', ')}</p>
-                <p className="categories">
+                {authors && <p className="text-bold"><span className="text-gray">Authors:</span> {authors.join(', ')}</p>}
+
+                {categories && <p className="categories">
                     {categories.map(category => <span key={utilService.makeId()}>{category}</span>)}
-                </p>
-                <LongTxt txt={description} />
-                <p className="level">{getReadingLevel(pageCount)}</p>
-                <p className="status">{getBookStatus(publishedDate)}</p>
+                </p>}
+
+                {description && <LongTxt txt={description} />}
+
+                {pageCount && <p className="level">{getReadingLevel(pageCount)}</p>}
+
+                {publishedDate && <p className="status">{getBookStatus(publishedDate)}</p>}
+
                 <p className="text-bold">
                     <span className="text-gray">Price: </span>
                     <span className={`text-colored ${getPriceStyle(amount)}`}>
                         {amount} {currencyCode}
                     </span>
                 </p>
+
                 <div className="btns-container">
                     <Link className="link-btn" to={`/books/${prevBookId}`}>Prev</Link>
                     <Link className="link-btn" to={`/books/${nextBookId}`}>Next</Link>
                 </div>
             </div>
+
             <div className="reviews">
                 <p className="text-bold text-gray">Reviews:</p>
                 <ul>
