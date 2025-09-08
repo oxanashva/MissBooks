@@ -6,7 +6,7 @@ export function BookPreview({ book }) {
     return (
         <article key={id} className="book-preview">
             <h2 className="title">{title}</h2>
-            <p className="text-bold"><span className="text-gray">Authors:</span> {authors.join(', ')}</p>
+            <p className="authors text-bold"><span className="text-gray">Authors:</span> {authors.join(', ')}</p>
             <p className="categories">
                 {categories.map(category => <span key={utilService.makeId()}>{category}</span>)}
             </p>

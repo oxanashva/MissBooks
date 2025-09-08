@@ -9,7 +9,15 @@
 
 .book-preview .title {
     color: var(--clr1);
-    height: 40px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.book-preview .authors {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 }
 
 .book-preview .categories {
@@ -29,6 +37,9 @@
 }
 
 .book-preview img {
+    width: 100%;
+    height: 345px;
+    object-fit: cover;
     display: block;
     margin-block: 2rem;
 }
