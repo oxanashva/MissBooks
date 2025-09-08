@@ -16,18 +16,10 @@ export function AddReview({ bookId, onAddReview }) {
         }))
     }
 
-    function onSaveReview(event) {
+    function saveReview(event) {
         event.preventDefault()
-        bookService.addReview(bookId, reviews)
-            .then((book) => {
-                onAddReview(book)
-                setReviews(bookService.getEmptyReview())
-                showSuccessMsg('Review added')
-            })
-            .catch(error => {
-                console.error('error:', error)
-                showErrorMsg('Cannot add review')
-            })
+        onAddReview(bookId, reviews)
+        setReviews(bookService.getEmptyReview())
     }
 
     const { fullname, rating, readAt } = reviews
@@ -35,7 +27,7 @@ export function AddReview({ bookId, onAddReview }) {
     return (
         <div className="add-review">
             <p className="text-bold text-gray">Add a Review</p>
-            <form onSubmit={onSaveReview}>
+            <form onSubmit={saveReview}>
                 <div className="field">
                     <label htmlFor="fullname">Your Full Name</label>
                     <input

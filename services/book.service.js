@@ -63,7 +63,8 @@ function addReview(bookId, review) {
             if (!book.reviews) {
                 book.reviews = [];
             }
-            book.reviews.push(review)
+            const newReview = { ...review, id: utilService.makeId() }
+            book.reviews.push(newReview)
             return storageService.put(KEY, book)
         })
 }

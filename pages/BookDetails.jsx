@@ -22,6 +22,17 @@ export function BookDetails() {
             })
     }, [params.id])
 
+    function onAddReview(bookId, review) {
+        bookService.addReview(bookId, review)
+            .then(updatedBook => {
+                setBook(updatedBook)
+                showSuccessMsg('Review added')
+            })
+            .catch(error => {
+                console.error('error:', error)
+                showErrorMsg('Cannot add review')
+            })
+    }
 
     function onRemoveReview(bookId, reviewId) {
         bookService.removeReview(bookId, reviewId)
@@ -103,7 +114,7 @@ export function BookDetails() {
                 <p className="text-bold text-gray">Reviews:</p>
                 <ul>
                     {reviews && reviews.map(review =>
-                        <li key={utilService.makeId()}>
+                        <li key={review.id}>
                             <span className="stars">{"⭐".repeat(review.rating)}</span>
                             <span className="text-bold">{review.fullname} </span>
                             <span>read it on {new Date(review.readAt).toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" })}</span>
@@ -111,7 +122,7 @@ export function BookDetails() {
                         </li>)
                     }
                 </ul>
-                <AddReview bookId={id} onAddReview={setBook} />
+                <AddReview bookId={id} onAddReview={onAddReview} />
             </div>
         </section>
     )
