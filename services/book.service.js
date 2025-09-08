@@ -124,7 +124,7 @@ function _setNextPrevBookId(book) {
 
 function addGoogleBook(bookToAdd) {
     return query().then(books => {
-        const bookExists = books.some(book => book.title === bookToAdd.title)
+        const bookExists = books.some(book => book.title === bookToAdd.volumeInfo.title)
         if (!bookExists) {
             const newBook = {
                 title: bookToAdd.volumeInfo.title,

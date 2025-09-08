@@ -4,10 +4,12 @@ import { googleBookService } from "../services/google-book.service.js"
 import { utilService } from "../services/util.service.js"
 
 const { useState, useEffect, useRef } = React
+const { useNavigate } = ReactRouterDOM
 
 export function BookAdd() {
     const [search, setSearch] = useState('')
     const [googleBooks, setGoogleBooks] = useState(null)
+    const navigate = useNavigate()
 
     const debouncedSearch = useRef(utilService.debounce(onSearch)).current
 
@@ -18,7 +20,8 @@ export function BookAdd() {
     function onAddBook(bookToAdd) {
         bookService.addGoogleBook(bookToAdd)
             .then(savedBook => {
-                setGoogleBooks(prevGoogleBooks => prevGoogleBooks.items.filter(book => book.id !== bookToAdd.id))
+                setGoogleBooks(prevGoogleBooks => prevGoogleBooks.filter(book => book.id !== bookToAdd.id))
+                navigate(`/books/${savedBook.id}`)
                 showSuccessMsg('Book added, book id:' + savedBook.id)
             })
             .catch(error => {
@@ -71,7 +74,7 @@ export function BookAdd() {
                     </button>
                 </form>
                 <ul>
-                    {googleBooks && googleBooks.items && googleBooks.items.map(book => <li key={book.id}>
+                    {googleBooks && googleBooks.map(book => <li key={book.id}>
                         <span>{book.volumeInfo.title}</span>
                         <button onClick={() => onAddBook(book)}>
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path fill="currentColor" d="M12 5.25a.75.75 0 0 1 .75.75v5.25H18a.75.75 0 0 1 0 1.5h-5.25V18a.75.75 0 0 1-1.5 0v-5.25H6a.75.75 0 0 1 0-1.5h5.25V6a.75.75 0 0 1 .75-.75" /></svg>

@@ -733,6 +733,7 @@ function query(txt) {
             if (!res.ok) throw new Error('Network response was not ok')
             return res.json()
         })
+        .then(json => json.items)
         .catch(error => {
             console.error('Fetch error:', error)
             throw error

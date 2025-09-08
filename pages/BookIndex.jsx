@@ -35,7 +35,7 @@ export function BookIndex() {
     }
 
     function onAddBook(savedBook) {
-        setBooks([...books, savedBook])
+        setBooks(prevBooks => ([...prevBooks, savedBook]))
     }
 
     function onUpdateBook(savedBook) {
