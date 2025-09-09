@@ -21,12 +21,12 @@ export function RootCmp() {
                         <Route path="/" element={<Navigate to="/home" />} />
                         <Route path="/home" element={<HomePage />} />
                         <Route path="/about" element={<AboutUs />} />
-                        <Route path="/books" element={<BookIndex />}>
+                        <Route path="/book" element={<BookIndex />}>
                             <Route path="add-book" element={<BookEdit />} />
                             <Route path="add-google-book" element={<GoogleBookAdd />} />
                             <Route path="edit/:bookId" element={<BookEdit />} />
                         </Route>
-                        <Route path="/books/:id" element={<BookDetails />} />
+                        <Route path="/book/:id" element={<BookDetails />} />
                         <Route path="*" element={<NotFound />} />
                     </Routes>
                 </main>

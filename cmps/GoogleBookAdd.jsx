@@ -25,14 +25,13 @@ export function GoogleBookAdd() {
 
     function onCloseModal() {
         elDialog.current.close()
-        navigate(-1)
     }
 
     function onAddBook(bookToAdd) {
         bookService.addGoogleBook(bookToAdd)
             .then(savedBook => {
                 setGoogleBooks(prevGoogleBooks => prevGoogleBooks.filter(book => book.id !== bookToAdd.id))
-                navigate(`/books/${savedBook.id}`)
+                navigate(`/book/${savedBook.id}`)
                 showSuccessMsg('Book added, book id:' + savedBook.id)
             })
             .catch(error => {

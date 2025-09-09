@@ -105,9 +105,9 @@ export function BookDetails() {
                 </p>
 
                 <div className="btns-container">
-                    <Link className="link-btn" to={`/books/${prevBookId}`}>Prev</Link>
-                    <Link className="link-btn" to={`/books/${nextBookId}`}>Next</Link>
-                    <Link className="link-btn" to={'/books'}>Back to books</Link>
+                    <Link className="link-btn" to={`/book/${prevBookId}`}>Prev</Link>
+                    <Link className="link-btn" to={`/book/${nextBookId}`}>Next</Link>
+                    <Link className="link-btn" to={'/book'}>Back to books</Link>
                 </div>
             </div>
 
