@@ -30,7 +30,6 @@ export function BookEdit() {
 
     function onCloseModal() {
         elDialog.current.close()
-        navigate(-1)
     }
 
     function handleInput({ target }) {
@@ -96,6 +95,7 @@ export function BookEdit() {
         bookService.save(bookToSave)
             .then((savedBook) => {
                 onSaveBook(savedBook)
+                navigate(`/book/${savedBook.id}`)
                 showSuccessMsg(`Book saved (id: ${savedBook.id})`)
                 onCloseModal()
             }).catch(error => {
