@@ -87,7 +87,9 @@ export function BookEdit() {
 
         const bookToSave = {
             ...bookToEdit,
-            authors: bookToEdit.authors.split(',').map(author => author.trim())
+            authors: Array.isArray(bookToEdit.authors)
+                ? bookToEdit.authors
+                : bookToEdit.authors.split(',').map(author => author.trim())
         }
 
 
@@ -124,7 +126,7 @@ export function BookEdit() {
                         id="authors"
                         name="authors"
                         type="text"
-                        value={bookToEdit.authors}
+                        value={Array.isArray(bookToEdit.authors) ? bookToEdit.authors.join(', ') : bookToEdit.authors}
                         onChange={handleInput}
                     />
                 </div>
