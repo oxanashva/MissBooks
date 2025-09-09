@@ -1,7 +1,6 @@
 import { BookList } from "../cmps/BookList.jsx"
 import { BookFilter } from "../cmps/BookFilter.jsx"
 import { bookService } from "../services/book.service.js"
-import { BookEdit } from "../cmps/BookEdit.jsx"
 import { showErrorMsg, showSuccessMsg } from "../services/event-bus.service.js"
 
 const { useState, useEffect } = React
@@ -10,7 +9,6 @@ const { Link, Outlet } = ReactRouterDOM
 export function BookIndex() {
     const [books, setBooks] = useState(null)
     const [filterBy, setFilterBy] = useState(bookService.getDefaultFilter())
-    const [isEditOpen, setIsEditOpen] = useState(false)
     const [selectedBook, setSelectedBook] = useState(null)
 
     useEffect(() => {
