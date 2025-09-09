@@ -53,7 +53,7 @@ export function BookIndex() {
 
             <div className="btns">
                 <Link to="add-book" className="link-btn">Add Book</Link>
-                <Link to="add" className="link-btn">Add Book from the Google Books</Link>
+                <Link to="add-google-book" className="link-btn">Add Book from the Google Books</Link>
             </div>
 
             <BookFilter filterBy={filterBy} onSetFilterBy={setFilterBy} onClearFilter={onClearFilter} />
