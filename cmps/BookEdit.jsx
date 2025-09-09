@@ -2,14 +2,27 @@ import { bookService } from "../services/book.service.js"
 import { showErrorMsg, showSuccessMsg } from "../services/event-bus.service.js"
 
 const { useState, useEffect, useRef } = React
-const { useNavigate, useOutletContext } = ReactRouterDOM
+const { useParams, useNavigate, useOutletContext } = ReactRouterDOM
 
 export function BookEdit() {
     const [bookToEdit, setBookToEdit] = useState(bookService.getEmptyBook())
+    const { bookId } = useParams()
     const { onSaveBook } = useOutletContext()
 
     const elDialog = useRef(null)
     const navigate = useNavigate()
+
+    useEffect(() => {
+        if (bookId) {
+            bookService.get(bookId)
+                .then(setBookToEdit)
+                .catch(error => {
+                    console.error('Error:', error);
+                    showErrorMsg('Cannot load book for edit:')
+                    navigate('/books')
+                })
+        }
+    }, [bookId])
 
     useEffect(() => {
         elDialog.current.showModal()
@@ -77,10 +90,10 @@ export function BookEdit() {
             authors: bookToEdit.authors.split(',').map(author => author.trim())
         }
 
-        onSaveBook(bookToSave)
 
         bookService.save(bookToSave)
             .then((savedBook) => {
+                onSaveBook(savedBook)
                 showSuccessMsg(`Book saved (id: ${savedBook.id})`)
                 onCloseModal()
             }).catch(error => {
@@ -89,7 +102,7 @@ export function BookEdit() {
             })
     }
 
-    const availableCategories = ['Art', 'Biography', 'Computers', 'History', 'Medical', 'Poetry']
+    const availableCategories = ['Love', 'Art', 'Biography', 'Computers', 'History', 'Medical', 'Poetry', 'Religion', 'Fiction']
 
     return (
         <dialog ref={elDialog} className="book-edit">

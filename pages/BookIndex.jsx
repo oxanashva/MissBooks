@@ -9,7 +9,6 @@ const { Link, Outlet } = ReactRouterDOM
 export function BookIndex() {
     const [books, setBooks] = useState(null)
     const [filterBy, setFilterBy] = useState(bookService.getDefaultFilter())
-    const [selectedBook, setSelectedBook] = useState(null)
 
     useEffect(() => {
         bookService.query(filterBy)
@@ -26,7 +25,8 @@ export function BookIndex() {
 
     function onSaveBook(savedBook) {
         setBooks(prevBooks => {
-            if (savedBook.id) {
+            const isExistingBook = prevBooks.some(book => book.id === savedBook.id)
+            if (isExistingBook) {
                 return prevBooks.map(book => book.id === savedBook.id ? savedBook : book)
             } else {
                 return [savedBook, ...prevBooks]
@@ -58,7 +58,7 @@ export function BookIndex() {
 
             <BookFilter filterBy={filterBy} onSetFilterBy={setFilterBy} onClearFilter={onClearFilter} />
 
-            <BookList books={books} onSelect={setSelectedBook} onRemove={onRemove} />
+            <BookList books={books} onRemove={onRemove} />
             <Outlet context={{ onSaveBook }} />
         </section>
     )
