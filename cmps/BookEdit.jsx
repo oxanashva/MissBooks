@@ -2,19 +2,23 @@ import { bookService } from "../services/book.service.js"
 import { showErrorMsg, showSuccessMsg } from "../services/event-bus.service.js"
 
 const { useState, useEffect, useRef } = React
+const { useNavigate, useOutletContext } = ReactRouterDOM
 
-export function BookEdit({ book, isEditOpen, onCloseModal, onAddBook, onUpdateBook }) {
-    const [bookToEdit, setBookToEdit] = useState(book ? { ...book } : bookService.getEmptyBook())
+export function BookEdit() {
+    const [bookToEdit, setBookToEdit] = useState(bookService.getEmptyBook())
+    const { onSaveBook } = useOutletContext()
 
     const elDialog = useRef(null)
+    const navigate = useNavigate()
 
     useEffect(() => {
-        if (isEditOpen) {
-            elDialog.current.showModal()
-        } else {
-            elDialog.current.close()
-        }
-    }, [isEditOpen])
+        elDialog.current.showModal()
+    }, [])
+
+    function onCloseModal() {
+        elDialog.current.close()
+        navigate(-1)
+    }
 
     function handleInput({ target }) {
         const field = target.name
@@ -60,7 +64,7 @@ export function BookEdit({ book, isEditOpen, onCloseModal, onAddBook, onUpdateBo
         })
     }
 
-    function onSaveBook(event) {
+    function saveBook(event) {
         event.preventDefault()
 
         if (!bookToEdit.title || !bookToEdit.authors.length === 0 || bookToEdit.categories.length === 0 || !bookToEdit.publishedDate || !bookToEdit.pageCount || !bookToEdit.listPrice.amount) {
@@ -68,15 +72,16 @@ export function BookEdit({ book, isEditOpen, onCloseModal, onAddBook, onUpdateBo
             return
         }
 
-        bookToEdit.authors = bookToEdit.authors.split(',').map(author => author.trim())
+        const bookToSave = {
+            ...bookToEdit,
+            authors: bookToEdit.authors.split(',').map(author => author.trim())
+        }
 
-        bookService.save(bookToEdit)
+        onSaveBook(bookToSave)
+
+        bookService.save(bookToSave)
             .then((savedBook) => {
-                if (bookToEdit.id) onUpdateBook(savedBook)
-                else onAddBook(savedBook)
-
                 showSuccessMsg(`Book saved (id: ${savedBook.id})`)
-
                 onCloseModal()
             }).catch(error => {
                 console.error('error:', error)
@@ -89,7 +94,7 @@ export function BookEdit({ book, isEditOpen, onCloseModal, onAddBook, onUpdateBo
     return (
         <dialog ref={elDialog} className="book-edit">
             <h2>Book Edit</h2>
-            <form onSubmit={onSaveBook}>
+            <form onSubmit={saveBook}>
                 <div className="form-group">
                     <label htmlFor="title">Title</label>
                     <input

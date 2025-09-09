@@ -1,0 +1,7 @@
+.book-index .btns {
+    display: flex;
+}
+
+.book-index .link-btn:first-of-type {
+    margin-inline-start: 0;
+}
