@@ -2,7 +2,6 @@
     position: relative;
     width: 600px;
     border: none;
-    border-radius: 0.5rem;
 }
 
 .book-edit::backdrop {
