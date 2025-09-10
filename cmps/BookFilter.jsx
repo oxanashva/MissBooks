@@ -17,7 +17,8 @@ export function BookFilter({ filterBy, onSetFilterBy, onClearFilter }) {
 
         switch (target.type) {
             case 'number':
-                value = +value || ''
+                value = target.value === '' ? '' : +target.value
+                break
             default: break
         }
 
@@ -50,6 +51,7 @@ export function BookFilter({ filterBy, onSetFilterBy, onClearFilter }) {
                     type="number"
                     name="price"
                     value={price}
+                    min="0"
                     onChange={handleInput}
                 />
                 <label htmlFor="category">Category</label>

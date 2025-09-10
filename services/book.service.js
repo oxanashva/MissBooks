@@ -8,6 +8,7 @@ export const bookService = {
     remove,
     save,
     getDefaultFilter,
+    getFilterFromSearchParams,
     getEmptyBook,
     getEmptyReview,
     addReview,
@@ -23,7 +24,7 @@ function query(filterBy = {}) {
                 books = books.filter(book => regExp.test(book.title))
             }
 
-            if (filterBy.price) {
+            if (filterBy.price || filterBy.price === 0) {
                 books = books.filter(book => {
                     return book.listPrice.amount <= filterBy.price
                 })
@@ -90,8 +91,17 @@ function getEmptyReview(id = utilService.makeId(), fullname = '', rating = '1', 
     }
 }
 
-function getDefaultFilter(filterBy = { title: '', price: 0, category: '' }) {
+function getDefaultFilter(filterBy = { title: '', price: '', category: '' }) {
     return { title: filterBy.title, price: filterBy.price, category: filterBy.category }
+}
+
+function getFilterFromSearchParams(searchParams) {
+    const defaultFilter = getDefaultFilter()
+    const filterBy = {}
+    for (const field in defaultFilter) {
+        filterBy[field] = searchParams.get(field) || defaultFilter[field]
+    }
+    return filterBy
 }
 
 function getEmptyBook(title = '', authors = [], categories = [], thumbnail = 'assets/img/placeholder.jpg', description = '', publishedDate = 0, pageCount = 0, price = 0, currency = 'EUR', isOnSale = false) {

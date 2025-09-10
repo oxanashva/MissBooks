@@ -4,13 +4,16 @@ import { bookService } from "../services/book.service.js"
 import { showErrorMsg, showSuccessMsg } from "../services/event-bus.service.js"
 
 const { useState, useEffect } = React
-const { Link, Outlet } = ReactRouterDOM
+const { Link, Outlet, useSearchParams } = ReactRouterDOM
 
 export function BookIndex() {
     const [books, setBooks] = useState(null)
-    const [filterBy, setFilterBy] = useState(bookService.getDefaultFilter())
+    const [searchParams, setSearchParams] = useSearchParams()
+    const defaultFilter = bookService.getFilterFromSearchParams(searchParams)
+    const [filterBy, setFilterBy] = useState(defaultFilter)
 
     useEffect(() => {
+        setSearchParams(filterBy)
         bookService.query(filterBy)
             .then(setBooks)
             .catch(error => {
