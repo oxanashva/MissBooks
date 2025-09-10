@@ -19,7 +19,7 @@ export function BookEdit() {
                 .catch(error => {
                     console.error('Error:', error);
                     showErrorMsg('Cannot load book for edit:')
-                    navigate('/books')
+                    navigate('/book')
                 })
         }
     }, [bookId])
@@ -30,6 +30,7 @@ export function BookEdit() {
 
     function onCloseModal() {
         elDialog.current.close()
+        navigate('/book')
     }
 
     function handleInput({ target }) {
@@ -97,7 +98,6 @@ export function BookEdit() {
                 onSaveBook(savedBook)
                 navigate(`/book/${savedBook.id}`)
                 showSuccessMsg(`Book saved (id: ${savedBook.id})`)
-                onCloseModal()
             }).catch(error => {
                 console.error('error:', error)
                 showErrorMsg('Cannot save book')

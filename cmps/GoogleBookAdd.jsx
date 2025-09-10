@@ -25,6 +25,7 @@ export function GoogleBookAdd() {
 
     function onCloseModal() {
         elDialog.current.close()
+        navigate('/book')
     }
 
     function onAddBook(bookToAdd) {
