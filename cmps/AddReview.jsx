@@ -84,7 +84,7 @@ export function AddReview({ bookId, onAddReview }) {
                     </div>
                 </div>
 
-                <DynamicCmp cmpType={cmpType} />
+                <DynamicCmp cmpType={cmpType} name="rating" handleInput={handleInput} />
 
                 <div className="field">
                     <label htmlFor="readAt">Date You Read It</label>

@@ -116,7 +116,8 @@ export function BookDetails() {
                 <ul>
                     {reviews && reviews.map(review =>
                         <li key={review.id}>
-                            <span className="stars">{"⭐".repeat(review.rating)}</span>
+                            {/* <span className="stars">{"⭐".repeat(review.rating)}</span> */}
+                            <p>Rating: {review.rating}</p>
                             <span className="text-bold">{review.fullname} </span>
                             <span>read it on {new Date(review.readAt).toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" })}</span>
                             <button onClick={() => onRemoveReview(id, review.id)}>X</button>

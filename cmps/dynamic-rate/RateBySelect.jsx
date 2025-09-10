@@ -1,9 +1,9 @@
 
 
-export function RateBySelect() {
+export function RateBySelect({ name, handleInput }) {
     return (
-        <select className="rate-by-select">
-            {[1, 2, 3, 4, 5].map(num => <option key={num}>{num}</option>)}
+        <select className="rate-by-select" name={name} onChange={handleInput}>
+            {[1, 2, 3, 4, 5].map(num => <option key={num} value={num}>{num}</option>)}
         </select>
     )
 }
