@@ -6,26 +6,28 @@ import { RateByStars } from "../cmps/dynamic-rate/RateByStars.jsx"
 const { useState } = React
 
 export function AddReview({ bookId, onAddReview }) {
-    const [reviews, setReviews] = useState(bookService.getEmptyReview())
+    const [review, setReview] = useState(bookService.getEmptyReview())
     const [cmpType, setCmpType] = useState('select')
 
     function handleInput({ target }) {
         const field = target.name
         let value = target.value
 
-        setReviews(prevReviews => ({
+        setReview(prevReviews => ({
             ...prevReviews,
-            [field]: value
+            [field]: value,
+            ratingFormat: cmpType
         }))
     }
 
     function saveReview(event) {
         event.preventDefault()
-        onAddReview(bookId, reviews)
-        setReviews(bookService.getEmptyReview())
+        onAddReview(bookId, review)
+        setReview(bookService.getEmptyReview())
+        setCmpType('select')
     }
 
-    const { fullname, rating, readAt } = reviews
+    const { fullname, readAt } = review
 
     return (
         <div className="add-review">
@@ -84,7 +86,7 @@ export function AddReview({ bookId, onAddReview }) {
                     </div>
                 </div>
 
-                <DynamicCmp cmpType={cmpType} name="rating" handleInput={handleInput} />
+                <DynamicCmp cmpType={cmpType} name="rating" handleInput={handleInput} value={review.rating} />
 
                 <div className="field">
                     <label htmlFor="readAt">Date You Read It</label>

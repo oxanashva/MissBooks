@@ -82,7 +82,7 @@ function removeReview(bookId, reviewId) {
         })
 }
 
-function getEmptyReview(id = utilService.makeId(), fullname = '', rating = '1', readAt = '') {
+function getEmptyReview(id = utilService.makeId(), fullname = '', rating = '', readAt = '') {
     return {
         id,
         fullname,

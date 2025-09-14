@@ -76,10 +76,37 @@
     padding-block-start: calc(40px + 2rem);
 }
 
-.book-details ul li {
+.book-details .review {
+    position: relative;
+    padding: 1rem;
     margin-block-end: 2rem;
+    border: 1px solid var(--gray1);
+    border-radius: 0.5rem;
+    font-size: smaller;
 }
 
-.book-details .stars {
+.book-details .review-content {
+    display: flex;
+    align-items: center;
+}
+
+.book-details .review-content span {
     margin-inline-end: 1rem;
+}
+
+.book-details .review-content svg {
+   color: #FFAC33;
+}
+
+.book-details .remove-btn {
+    position: absolute;
+    top: 0;
+    right: 0;
+    cursor: pointer;
+    background-color: transparent;
+    border: none;
+}
+
+.book-details .remove-btn:hover {
+    color: var(--gray2);
 }
