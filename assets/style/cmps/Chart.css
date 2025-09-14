@@ -1,0 +1,38 @@
+.chart {
+    width: 60%;
+    margin: 0 auto;
+    display: grid;
+    grid-template-rows: repeat(4, 50px);
+    grid-template-columns: repeat(6, 1fr);
+    background-image: linear-gradient(to top, rgba(0, 0, 0, 0.1) 2%, rgba(0, 0, 0, 0) 2%);
+    background-size: 100% 50px;
+    list-style: none;
+    padding: 0;
+    margin-block-end: 2rem;
+}
+
+.chart li {
+    display: grid;
+    padding-inline: 1rem;
+    grid-row: 1/5;
+    height: 100%;
+    align-items: end;
+}
+
+.chart li span {
+    position: relative;
+    display: block;
+    background-color: var(--clr2bg-light);
+}
+
+.chart li span::before {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    content: attr(title);
+    display: block;
+    text-align: center;
+    font-size: smaller;
+    margin-block-start: 0.5rem;
+}
