@@ -27,7 +27,7 @@ export function AddReview({ bookId, onAddReview }) {
         setCmpType('select')
     }
 
-    const { fullname, readAt } = review
+    const { fullname, rating, readAt } = review
 
     return (
         <div className="add-review">
@@ -86,7 +86,7 @@ export function AddReview({ bookId, onAddReview }) {
                     </div>
                 </div>
 
-                <DynamicCmp cmpType={cmpType} name="rating" handleInput={handleInput} value={review.rating} />
+                <DynamicCmp cmpType={cmpType} name="rating" handleInput={handleInput} value={rating} />
 
                 <div className="field">
                     <label htmlFor="readAt">Date You Read It</label>
