@@ -23,8 +23,8 @@ export function BookDetails() {
             })
     }, [params.id])
 
-    function onAddReview(bookId, review) {
-        bookService.addReview(bookId, review)
+    function onAddReview(book, review) {
+        bookService.addReview(book, review)
             .then(updatedBook => {
                 setBook(updatedBook)
                 showSuccessMsg('Review added')
@@ -35,8 +35,8 @@ export function BookDetails() {
             })
     }
 
-    function onRemoveReview(bookId, reviewId) {
-        bookService.removeReview(bookId, reviewId)
+    function onRemoveReview(book, reviewId) {
+        bookService.removeReview(book, reviewId)
             .then(book => {
                 setBook(book)
                 showSuccessMsg('Review removed')
@@ -72,7 +72,7 @@ export function BookDetails() {
 
     if (!book) return <div>Loading...</div>
 
-    const { id, title, thumbnail, authors, categories, description, pageCount, publishedDate, prevBookId, nextBookId, listPrice: { amount, currencyCode, isOnSale }, reviews } = book
+    const { title, thumbnail, authors, categories, description, pageCount, publishedDate, prevBookId, nextBookId, listPrice: { amount, currencyCode, isOnSale }, reviews } = book
 
     return (
         <section className="book-details">
@@ -142,11 +142,11 @@ export function BookDetails() {
 
                             <span>read it on {new Date(review.readAt).toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" })}</span>
 
-                            <button className="remove-btn" onClick={() => onRemoveReview(id, review.id)}>x</button>
+                            <button className="remove-btn" onClick={() => onRemoveReview(book, review.id)}>x</button>
                         </li>)
                     }
                 </ul>
-                <AddReview bookId={id} onAddReview={onAddReview} />
+                <AddReview book={book} onAddReview={onAddReview} />
             </div>
         </section>
     )

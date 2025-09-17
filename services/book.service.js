@@ -58,28 +58,30 @@ function save(book) {
     }
 }
 
-function addReview(bookId, review) {
-    return storageService.get(KEY, bookId)
-        .then(book => {
-            if (!book.reviews) {
-                book.reviews = [];
-            }
-            const newReview = { ...review, id: utilService.makeId() }
-            book.reviews.push(newReview)
-            return storageService.put(KEY, book)
-        })
+function addReview(book, review) {
+    const updtatedBook = { ...book }
+    if (!updtatedBook.reviews) {
+        updtatedBook.reviews = [];
+    }
+    const newReview = { ...review, id: utilService.makeId() }
+    updtatedBook.reviews.push(newReview)
+    return storageService.put(KEY, updtatedBook)
+}
+function addReview(book, review) {
+    const newReview = { ...review, id: utilService.makeId() }
+    const updatedReviews = book.reviews ? [newReview, ...book.reviews] : [newReview]
+    const updtatedBook = { ...book, reviews: updatedReviews }
+
+    return storageService.put(KEY, updtatedBook)
 }
 
-function removeReview(bookId, reviewId) {
-    return storageService.get(KEY, bookId)
-        .then(book => {
-            const updatedReviews = book.reviews.filter(review => review.id !== reviewId)
-            const updatedBook = {
-                ...book,
-                reviews: updatedReviews
-            }
-            return storageService.put(KEY, updatedBook)
-        })
+function removeReview(book, reviewId) {
+    const updatedReviews = book.reviews.filter(review => review.id !== reviewId)
+    const updatedBook = {
+        ...book,
+        reviews: updatedReviews
+    }
+    return storageService.put(KEY, updatedBook)
 }
 
 function getEmptyReview(id = utilService.makeId(), fullname = '', rating = '', readAt = '') {

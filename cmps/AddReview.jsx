@@ -3,7 +3,7 @@ import { DynamicCmp } from "./dynamic-rate/DynamicCmp.jsx"
 
 const { useState } = React
 
-export function AddReview({ bookId, onAddReview }) {
+export function AddReview({ book, onAddReview }) {
     const [review, setReview] = useState(bookService.getEmptyReview())
     const [cmpType, setCmpType] = useState('select')
 
@@ -20,7 +20,7 @@ export function AddReview({ bookId, onAddReview }) {
 
     function saveReview(event) {
         event.preventDefault()
-        onAddReview(bookId, review)
+        onAddReview(book, review)
         setReview(bookService.getEmptyReview())
         setCmpType('select')
     }
