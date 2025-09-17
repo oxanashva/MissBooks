@@ -13,7 +13,9 @@ export function BookIndex() {
     const [filterBy, setFilterBy] = useState(defaultFilter)
 
     useEffect(() => {
-        setSearchParams(filterBy)
+        const newSearchParams = bookService.getSearchParams(filterBy)
+        setSearchParams(newSearchParams)
+
         bookService.query(filterBy)
             .then(setBooks)
             .catch(error => {

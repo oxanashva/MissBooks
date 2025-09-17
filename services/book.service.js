@@ -9,6 +9,7 @@ export const bookService = {
     save,
     getDefaultFilter,
     getFilterFromSearchParams,
+    getSearchParams,
     getEmptyBook,
     getEmptyReview,
     addReview,
@@ -99,11 +100,21 @@ function getDefaultFilter(filterBy = { title: '', price: '', category: '' }) {
 
 function getFilterFromSearchParams(searchParams) {
     const defaultFilter = getDefaultFilter()
-    const filterBy = {}
+    const filterBy = { ...defaultFilter }
     for (const field in defaultFilter) {
         filterBy[field] = searchParams.get(field) || defaultFilter[field]
     }
     return filterBy
+}
+
+function getSearchParams(filterBy) {
+    const params = {}
+    for (const field in filterBy) {
+        if (filterBy[field]) {
+            params[field] = filterBy[field]
+        }
+    }
+    return params
 }
 
 function getEmptyBook(title = '', authors = [], categories = [], thumbnail = 'assets/img/placeholder.jpg', description = '', publishedDate = 0, pageCount = 0, price = 0, currency = 'EUR', isOnSale = false) {
