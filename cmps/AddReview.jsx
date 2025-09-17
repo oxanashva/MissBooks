@@ -1,7 +1,5 @@
 import { bookService } from "../services/book.service.js"
-import { RateBySelect } from "../cmps/dynamic-rate/RateBySelect.jsx"
-import { RateByTextbox } from "../cmps/dynamic-rate/RateByTextbox.jsx"
-import { RateByStars } from "../cmps/dynamic-rate/RateByStars.jsx"
+import { DynamicCmp } from "./dynamic-rate/DynamicCmp.jsx"
 
 const { useState } = React
 
@@ -86,7 +84,7 @@ export function AddReview({ bookId, onAddReview }) {
                     </div>
                 </div>
 
-                <DynamicCmp cmpType={cmpType} name="rating" handleInput={handleInput} value={rating} />
+                <DynamicCmp cmpType={cmpType} name="rating" value={rating} handleInput={handleInput} />
 
                 <div className="field">
                     <label htmlFor="readAt">Date You Read It</label>
@@ -100,21 +98,6 @@ export function AddReview({ bookId, onAddReview }) {
                 </div>
                 <button type="submit">Save</button>
             </form>
-        </div>
-    )
-}
-
-function DynamicCmp(props) {
-    const cmpMaps = {
-        select: <RateBySelect {...props} />,
-        textbox: <RateByTextbox {...props} />,
-        stars: <RateByStars {...props} />
-    }
-
-    return (
-        <div className="field">
-            <label htmlFor={props.cmpType}>Your Rating</label>
-            {cmpMaps[props.cmpType]}
         </div>
     )
 }

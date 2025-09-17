@@ -3,6 +3,7 @@ import { utilService } from "../services/util.service.js"
 import { LongTxt } from "../cmps/LongTxt.jsx"
 import { showErrorMsg, showSuccessMsg } from "../services/event-bus.service.js"
 import { AddReview } from "../cmps/AddReview.jsx"
+import { RateByStars } from "../cmps/dynamic-rate/RateByStars.jsx"
 
 const { useState, useEffect } = React
 const { useParams, Link } = ReactRouterDOM
@@ -118,25 +119,24 @@ export function BookDetails() {
                         <li className="review" key={review.id}>
                             {review.ratingFormat === "select" &&
                                 <p className="review-content">
-                                    <span>Rating:</span>
+                                    <span className="review-label">Rating:</span>
                                     <span className="text-italic">{review.rating}/5 stars</span>
                                 </p>
                             }
 
                             {review.ratingFormat === "textbox" &&
                                 <p className="review-content">
-                                    <span>Review:</span>
+                                    <span className="review-label">Review:</span>
                                     <span className="text-italic">{review.rating}</span>
                                 </p>
                             }
 
                             {review.ratingFormat === "stars" &&
-                                <p className="review-content">
-                                    <span>Rating:</span>
-                                    {Array.from({ length: review.rating }, (_, i) =>
-                                        <svg key={i} xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 36 36"><path fill="currentColor" d="M27.287 34.627c-.404 0-.806-.124-1.152-.371L18 28.422l-8.135 5.834a1.97 1.97 0 0 1-2.312-.008a1.971 1.971 0 0 1-.721-2.194l3.034-9.792l-8.062-5.681a1.98 1.98 0 0 1-.708-2.203a1.978 1.978 0 0 1 1.866-1.363L12.947 13l3.179-9.549a1.976 1.976 0 0 1 3.749 0L23 13l10.036.015a1.975 1.975 0 0 1 1.159 3.566l-8.062 5.681l3.034 9.792a1.97 1.97 0 0 1-.72 2.194a1.957 1.957 0 0 1-1.16.379z" /></svg>
-                                    )}
-                                </p>}
+                                <div className="review-content">
+                                    <span className="review-label">Rating:</span>
+                                    <RateByStars value={review.rating} size={12} readOnly={true} />
+                                </div>
+                            }
 
                             <span className="text-bold">{review.fullname} </span>
 

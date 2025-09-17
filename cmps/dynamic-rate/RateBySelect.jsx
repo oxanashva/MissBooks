@@ -1,6 +1,8 @@
 
 
-export function RateBySelect({ name, value, handleInput }) {
+export function RateBySelect({ name, value, handleInput, totalStars = 5 }) {
+    const starsArray = Array.from({ length: totalStars }, (_, i) => i + 1)
+
     return (
         <select
             className="rate-by-select"
@@ -8,7 +10,7 @@ export function RateBySelect({ name, value, handleInput }) {
             value={value}
             onChange={handleInput}
         >
-            {[1, 2, 3, 4, 5].map(num => <option key={num} value={num}>{num}</option>)}
+            {starsArray.map(num => <option key={num} value={num}>{num}</option>)}
         </select>
     )
 }

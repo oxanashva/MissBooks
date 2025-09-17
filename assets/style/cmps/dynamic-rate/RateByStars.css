@@ -1,8 +1,8 @@
-.rate-by-stars span svg {
+.rate-by-stars span {
   color: var(--gray2);
 }
 
-.rate-by-stars span.selected svg {
+.rate-by-stars span.selected {
     color: #FFAC33;
 }
 

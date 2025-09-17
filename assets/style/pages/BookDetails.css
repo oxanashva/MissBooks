@@ -90,12 +90,12 @@
     align-items: center;
 }
 
-.book-details .review-content span {
-    margin-inline-end: 1rem;
+.book-details div.review-content {
+    margin-block-end: 1rem;
 }
 
-.book-details .review-content svg {
-   color: #FFAC33;
+.book-details .review-content .review-label {
+    margin-inline-end: 1rem;
 }
 
 .book-details .remove-btn {
