@@ -1,3 +1,4 @@
+import { bookService } from "../services/book.service.js"
 import { utilService } from "../services/util.service.js"
 
 const { useState, useEffect, useRef } = React
@@ -10,6 +11,10 @@ export function BookFilter({ filterBy, onSetFilterBy, onClearFilter }) {
     useEffect(() => {
         debouncedFilterByToEdit(filterByToEdit)
     }, [filterByToEdit])
+
+    useEffect(() => {
+        setFilterByToEdit(filterBy)
+    }, [filterBy])
 
     function handleInput({ target }) {
         let value = target.value
@@ -26,10 +31,6 @@ export function BookFilter({ filterBy, onSetFilterBy, onClearFilter }) {
             ...prevFilterBy,
             [field]: value
         }))
-    }
-
-    function clearFilter() {
-        onClearFilter()
     }
 
     const { title, price, category } = filterByToEdit
@@ -61,7 +62,7 @@ export function BookFilter({ filterBy, onSetFilterBy, onClearFilter }) {
                     value={category}
                     onChange={handleInput}
                 />
-                <button onClick={clearFilter}>Clear Filter</button>
+                <button onClick={onClearFilter}>Clear Filter</button>
             </div>
         </section>
     )
