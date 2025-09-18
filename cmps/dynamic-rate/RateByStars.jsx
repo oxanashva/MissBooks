@@ -26,9 +26,10 @@ export function RateByStars({ name, value, handleInput, readOnly = false, size =
     return (
         <div className="rate-by-stars">
             {starsArray.map(num => (
-                <label key={num}>
+                <label key={num} htmlFor={num}>
                     <input
                         type="radio"
+                        id={num}
                         name={name}
                         value={num}
                         checked={value === num}

@@ -49,37 +49,37 @@ export function AddReview({ book, onAddReview }) {
                         <div>
                             <input
                                 type="radio"
-                                id="select"
+                                id="selectType"
                                 name="cmp-type"
                                 value="select"
                                 checked={cmpType === "select"}
                                 onChange={ev => setCmpType(ev.target.value)}
                             />
-                            <label htmlFor="select">Number(1-5)</label>
+                            <label htmlFor="selectType">Number(1-5)</label>
                         </div>
 
                         <div>
                             <input
                                 type="radio"
-                                id="textbox"
+                                id="textboxType"
                                 name="cmp-type"
                                 value="textbox"
                                 checked={cmpType === "textbox"}
                                 onChange={ev => setCmpType(ev.target.value)}
                             />
-                            <label htmlFor="textbox">Text feedback</label>
+                            <label htmlFor="textboxType">Text feedback</label>
                         </div>
 
                         <div>
                             <input
                                 type="radio"
-                                id="stars"
+                                id="starsType"
                                 name="cmp-type"
                                 value="stars"
                                 checked={cmpType === "stars"}
                                 onChange={ev => setCmpType(ev.target.value)}
                             />
-                            <label htmlFor="stars">Stars</label>
+                            <label htmlFor="starsType">Stars</label>
                         </div>
                     </div>
                 </div>

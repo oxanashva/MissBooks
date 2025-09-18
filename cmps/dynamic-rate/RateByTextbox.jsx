@@ -1,9 +1,10 @@
 
 
-export function RateByTextbox({ name, value, handleInput }) {
+export function RateByTextbox({ cmpType, name, value, handleInput }) {
     return (
         <textarea
             className="rate-by-textbox"
+            id={cmpType}
             name={name}
             value={value}
             minLength="1"
